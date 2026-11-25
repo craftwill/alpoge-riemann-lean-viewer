@@ -6499,8 +6499,8 @@
         const sd = (DATA.interactive_features && DATA.interactive_features.svg_data) || {};
         const zeros = sd.zeta_zeros || [];
         const cs = sd.critical_strip || { x_min: -0.5, x_max: 1.5, t_min: 0, t_max: 36, sample_hypothetical_off_line: { sigma: 0.72, gamma: 18.5, mirror_sigma: 0.28 } };
-        const W = 760, H = 300;
-        const padL = 56, padR = 26, padT = 24, padB = 38;
+        const W = 760, H = 312;
+        const padL = 56, padR = 26, padT = 34, padB = 38;
         const plotW = W - padL - padR;
         const plotH = H - padT - padB;
         const sx = (sig) => padL + ((sig - cs.x_min) / (cs.x_max - cs.x_min)) * plotW;
@@ -6512,8 +6512,8 @@
         if (showMirrorOverlay) {
           // Right half Re(s) > 1/2 shaded as ruled out
           svg += '<rect x="' + sx(0.5).toFixed(1) + '" y="' + padT + '" width="' + (sx(1) - sx(0.5)).toFixed(1) + '" height="' + plotH + '" fill="var(--priority-soft)" />';
-          svg += '<text x="' + sx(0.75).toFixed(1) + '" y="' + (padT + 18) + '" text-anchor="middle" fill="var(--priority)" font-size="11" font-weight="600" font-family="var(--font-sans)">Ruled out by proof: Re(s) &gt; 1/2</text>';
-          svg += '<text x="' + sx(0.25).toFixed(1) + '" y="' + (padT + 18) + '" text-anchor="middle" fill="var(--accent-text)" font-size="11" font-weight="600" font-family="var(--font-sans)">Ruled out by mirror: Re(s) &lt; 1/2</text>';
+          svg += '<text x="' + sx(0.75).toFixed(1) + '" y="' + (padT - 10) + '" text-anchor="middle" fill="var(--priority)" font-size="11" font-weight="600" font-family="var(--font-sans)">Ruled out by proof: Re(s) &gt; 1/2</text>';
+          svg += '<text x="' + sx(0.25).toFixed(1) + '" y="' + (padT - 10) + '" text-anchor="middle" fill="var(--accent-text)" font-size="11" font-weight="600" font-family="var(--font-sans)">Ruled out by mirror: Re(s) &lt; 1/2</text>';
         }
 
         // Gridlines
