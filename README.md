@@ -1,8 +1,20 @@
-# Alpoge–Riemann Lean 4 Interactive Guide & Viewer
+﻿# Riemann Hypothesis & GRH in Lean 4 — Interactive Proof Viewer
 
-An interactive, self-contained educational guide and proof-architecture viewer for exploring Levent Alpoge's Lean 4 formalization of the Riemann Hypothesis / Generalized Riemann Hypothesis (GRH).
+**Live Interactive Viewer:** [https://craftwill.github.io/alpoge-riemann-lean-viewer/](https://craftwill.github.io/alpoge-riemann-lean-viewer/)
 
-**Live Viewer:** https://craftwill.github.io/alpoge-riemann-lean-viewer/
+An interactive, self-contained HTML guide and proof-architecture viewer for exploring Levent Alpoge's 175,187-file Lean 4 formalization of the **Riemann Hypothesis (RH)** and **Generalized Riemann Hypothesis (GRH)**.
+
+## Who This Viewer Is For
+
+Built primarily for **software engineers, programmers, and technical readers** who want to understand how a large-scale formal mathematical proof in Lean 4 is structured — without needing a math PhD.
+
+## What You Can Explore
+
+- **Prime Numbers & GRH Crash Course:** Plain-English primer on primes, zeta zeros, and Dirichlet L-functions.
+- **Proof Architecture Map & Roadmap:** Interactive dependency graph across all 16 modules and 175,187 Lean 4 files.
+- **Visual Intuition:** Interactive SVG diagrams of the prime counting staircase and critical-strip mirror symmetry (`Re(s) = 1/2`).
+- **Proof Call Stack & Stepanov Toy:** Read the proof top-down from `Main.lean` like a software call stack.
+- **Trust Audit & Lean 4 Rosetta Stone:** What the Lean 4 kernel guarantees plus Lean syntax translated into programming concepts.
 
 ## Credits & Attribution
 

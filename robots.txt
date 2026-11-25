@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://craftwill.github.io/alpoge-riemann-lean-viewer/sitemap.xml
