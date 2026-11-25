@@ -7456,6 +7456,9 @@
       });
 
       // Public view counter (hitscounter.dev JSON API; silent fallback on file:// or offline)
+      // Anti-F5-spam: multi-layer deduplication (first-party cookie + localStorage + sessionStorage,
+      // 24h cooldown, Navigation Timing reload detection, prerender/bot guard) + read-only /api/history
+      // endpoint for repeat loads so the displayed count stays live without incrementing.
       function initViewCounter() {
         const els = [
           document.getElementById("viewCounter"),
@@ -7478,8 +7481,97 @@
           return;
         }
 
+        const COOKIE_NAME = "arl_vc_ts";
+        const STORAGE_KEY = "arl_viewer_counted_v1";
+        const COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours
+        const now = Date.now();
+
+        function parseTimestamp(raw) {
+          const n = Number(raw);
+          return Number.isFinite(n) && n > 0 ? n : 0;
+        }
+
+        function readCookieTs() {
+          try {
+            const parts = (document.cookie || "").split(";");
+            for (let i = 0; i < parts.length; i++) {
+              const entry = parts[i].trim();
+              if (entry.startsWith(COOKIE_NAME + "=")) {
+                return parseTimestamp(decodeURIComponent(entry.slice(COOKIE_NAME.length + 1)));
+              }
+            }
+          } catch (_) {}
+          return 0;
+        }
+
+        function writeCookieTs(ts) {
+          try {
+            const remainingSec = Math.max(60, Math.ceil((ts + COOLDOWN_MS - now) / 1000));
+            const secureAttr = proto === "https:" ? "; Secure" : "";
+            document.cookie =
+              COOKIE_NAME + "=" + encodeURIComponent(String(ts)) +
+              "; Max-Age=" + remainingSec +
+              "; Path=/; SameSite=Lax" + secureAttr;
+          } catch (_) {}
+        }
+
+        function readStorageTs(store) {
+          try {
+            return parseTimestamp(store.getItem(STORAGE_KEY));
+          } catch (_) {
+            return 0;
+          }
+        }
+
+        function writeStorageTs(store, ts) {
+          try {
+            store.setItem(STORAGE_KEY, String(ts));
+          } catch (_) {}
+        }
+
+        function isReloadNavigation() {
+          try {
+            if (window.performance && typeof performance.getEntriesByType === "function") {
+              const nav = performance.getEntriesByType("navigation");
+              if (nav && nav[0] && nav[0].type === "reload") return true;
+            }
+            if (window.performance && performance.navigation && performance.navigation.type === 1) {
+              return true;
+            }
+          } catch (_) {}
+          return false;
+        }
+
+        function isAutomatedOrPrerender() {
+          try {
+            if (document.visibilityState === "prerender") return true;
+            if (navigator && navigator.webdriver === true) return true;
+          } catch (_) {}
+          return false;
+        }
+
+        // Check all persistence layers (defense in depth against partial clearing)
+        const cookieTs = readCookieTs();
+        const localTs = readStorageTs(window.localStorage);
+        const sessionTs = readStorageTs(window.sessionStorage);
+        const latestTs = Math.max(cookieTs, localTs, sessionTs);
+        const withinCooldown = latestTs > 0 && (now - latestTs) < COOLDOWN_MS;
+        const shouldCountHit = !withinCooldown && !isReloadNavigation() && !isAutomatedOrPrerender();
+
+        // Synchronously persist/re-sync timestamp BEFORE fetch to block rapid F5 / multi-tab race conditions
+        const effectiveTs = shouldCountHit ? now : (withinCooldown ? latestTs : 0);
+        if (effectiveTs > 0) {
+          writeCookieTs(effectiveTs);
+          writeStorageTs(window.localStorage, effectiveTs);
+          writeStorageTs(window.sessionStorage, effectiveTs);
+        }
+
         const targetUrl = "https://craftwill.github.io/alpoge-riemann-lean-viewer/";
-        const endpoint = "https://hitscounter.dev/api/hit?url=" + encodeURIComponent(targetUrl) + "&output=json";
+        const encodedUrl = encodeURIComponent(targetUrl);
+        const endpoint = shouldCountHit
+          ? "https://hitscounter.dev/api/hit?url=" + encodedUrl + "&output=json"
+          : "https://hitscounter.dev/api/history?url=" + encodedUrl;
+
         try {
           if (typeof fetch !== "function") {
             setCounterDisplay("—", true, "Public view counter unavailable");
