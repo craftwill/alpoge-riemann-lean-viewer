@@ -142,8 +142,62 @@
     }
 
     .sidebar-header {
-      padding: 22px 20px 16px;
+      padding: 14px 20px 16px;
       border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-top-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .view-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2px 7px;
+      line-height: 1.4;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .view-counter-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+    }
+
+    .view-counter-sep {
+      color: var(--border-strong);
+    }
+
+    .view-counter-val {
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .view-counter.is-local {
+      opacity: 0.72;
+    }
+
+    .view-counter.is-local .view-counter-val {
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
     .brand-row {
@@ -326,11 +380,23 @@
       gap: 10px;
     }
 
+    .mobile-bar-left,
+    .mobile-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
     .mobile-brand {
       font-family: var(--font-serif);
       font-size: 15px;
       font-weight: 600;
       color: var(--text);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .menu-btn {
@@ -2206,10 +2272,15 @@
 </head>
 <body>
   <div class="mobile-bar">
-    <button class="menu-btn" id="mobileMenuBtn" type="button">Index</button>
+    <div class="mobile-bar-left">
+      <button class="menu-btn" id="mobileMenuBtn" type="button">Index</button>
+      <span class="view-counter view-counter-mobile" id="mobileViewCounter" aria-live="polite" title="Total public page views"><span class="view-counter-label">Views</span><span class="view-counter-sep">·</span><span class="view-counter-val">—</span></span>
+    </div>
     <span class="mobile-brand">Alpoge Riemann Lean</span>
-    <span class="mobile-progress-pill" id="mobileProgressPill">0%</span>
-    <button class="theme-btn" id="mobileThemeBtn" type="button">Dark</button>
+    <div class="mobile-bar-right">
+      <span class="mobile-progress-pill" id="mobileProgressPill">0%</span>
+      <button class="theme-btn" id="mobileThemeBtn" type="button">Dark</button>
+    </div>
   </div>
 
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -2217,9 +2288,12 @@
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="Module Navigation">
       <div class="sidebar-header">
+        <div class="sidebar-top-meta">
+          <span class="view-counter" id="viewCounter" aria-live="polite" title="Total public page views"><span class="view-counter-label">Views</span><span class="view-counter-sep">·</span><span class="view-counter-val">—</span></span>
+          <button class="theme-btn" id="themeToggle" type="button" title="Toggle light/dark theme">Dark</button>
+        </div>
         <div class="brand-row">
           <h1 class="brand-title">Alpoge Riemann Lean</h1>
-          <button class="theme-btn" id="themeToggle" type="button" title="Toggle light/dark theme">Dark</button>
         </div>
         <div class="brand-sub" id="sidebarStats">RH &amp; GRH in Lean 4</div>
       </div>
@@ -7381,10 +7455,63 @@
         }
       });
 
+      // Public view counter (hitscounter.dev JSON API; silent fallback on file:// or offline)
+      function initViewCounter() {
+        const els = [
+          document.getElementById("viewCounter"),
+          document.getElementById("mobileViewCounter")
+        ].filter(Boolean);
+        if (!els.length) return;
+
+        function setCounterDisplay(valText, isLocal, tooltipText) {
+          els.forEach((el) => {
+            const valNode = el.querySelector(".view-counter-val");
+            if (valNode) valNode.textContent = valText;
+            el.classList.toggle("is-local", !!isLocal);
+            if (tooltipText) el.setAttribute("title", tooltipText);
+          });
+        }
+
+        const proto = window.location && window.location.protocol;
+        if (proto !== "http:" && proto !== "https:") {
+          setCounterDisplay("local", true, "Public view counter active on live site");
+          return;
+        }
+
+        const targetUrl = "https://craftwill.github.io/alpoge-riemann-lean-viewer/";
+        const endpoint = "https://hitscounter.dev/api/hit?url=" + encodeURIComponent(targetUrl) + "&output=json";
+        try {
+          if (typeof fetch !== "function") {
+            setCounterDisplay("—", true, "Public view counter unavailable");
+            return;
+          }
+          fetch(endpoint, { method: "GET", mode: "cors", cache: "no-store" })
+            .then((res) => (res && res.ok ? res.json() : null))
+            .then((data) => {
+              if (data && typeof data.total_hits === "number" && Number.isFinite(data.total_hits)) {
+                const total = data.total_hits;
+                const today = typeof data.today_hits === "number" && Number.isFinite(data.today_hits) ? data.today_hits : null;
+                const tip = today !== null
+                  ? "Total public views: " + formatNum(total) + " (" + formatNum(today) + " today)"
+                  : "Total public views: " + formatNum(total);
+                setCounterDisplay(formatNum(total), false, tip);
+              } else {
+                setCounterDisplay("—", true, "Public view counter unavailable");
+              }
+            })
+            .catch(() => {
+              setCounterDisplay("—", true, "Public view counter unavailable offline");
+            });
+        } catch (_) {
+          setCounterDisplay("—", true, "Public view counter unavailable");
+        }
+      }
+
       // Initial stats & boot
       document.getElementById("sidebarStats").textContent =
         formatNum(DATA.stats.total_files) + " Lean files · " + DATA.stats.section_count + " modules";
       initTheme();
+      initViewCounter();
       const initHash = window.location.hash.replace(/^#/, "");
       if (initHash && (GUIDE_IDS.includes(initHash) || SECTION_MAP[initHash])) {
         currentView = initHash;
