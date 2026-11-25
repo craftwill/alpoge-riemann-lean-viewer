@@ -1703,6 +1703,89 @@
       font-weight: 600;
       color: var(--text);
     }
+    .proposal-head-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .proposal-vote-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 2px 7px;
+      line-height: 1.4;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .proposal-vote-val {
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+    .proposal-vote-pill.is-voted {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-text);
+    }
+    .proposal-vote-pill.is-voted .proposal-vote-val {
+      color: var(--accent-text);
+    }
+    .proposal-vote-pill.is-local {
+      opacity: 0.72;
+    }
+    .proposals-dev-box {
+      margin-top: 14px;
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--bg-subtle);
+      padding: 10px 14px;
+    }
+    .proposals-dev-summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      list-style: none;
+      user-select: none;
+    }
+    .proposals-dev-summary::-webkit-details-marker { display: none; }
+    .proposals-dev-summary:hover { color: var(--text); }
+    .dev-only-badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 1px 6px;
+      border-radius: 2px;
+      border: 1px solid var(--support);
+      background: var(--support-soft);
+      color: var(--support-text);
+    }
+    .proposals-dev-body {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .proposals-dev-note {
+      margin: 0 0 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
     .proposal-desc {
       margin: 0;
       font-size: 13px;
@@ -5646,6 +5729,145 @@
       }
 
       // Proposed Additions helpers (uses next_proposals so only unbuilt ideas appear)
+      const PROPOSAL_VOTES_STORAGE_KEY = "arl_proposal_votes_v1";
+      const PROPOSAL_VOTES_COOKIE = "arl_prop_votes";
+      let proposalVoteCounts = {};
+      let proposalVotesFetchStarted = false;
+
+      function readVotedProposalsMap() {
+        const merged = {};
+        try {
+          const raw = storage.get(PROPOSAL_VOTES_STORAGE_KEY, "{}");
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === "object") {
+            Object.keys(parsed).forEach((k) => { if (parsed[k]) merged[k] = 1; });
+          }
+        } catch (_) {}
+        try {
+          const parts = (document.cookie || "").split(";");
+          for (let i = 0; i < parts.length; i++) {
+            const entry = parts[i].trim();
+            if (entry.startsWith(PROPOSAL_VOTES_COOKIE + "=")) {
+              const val = decodeURIComponent(entry.slice(PROPOSAL_VOTES_COOKIE.length + 1));
+              val.split(",").filter(Boolean).forEach((id) => { merged[id] = 1; });
+            }
+          }
+        } catch (_) {}
+        return merged;
+      }
+
+      let votedProposals = readVotedProposalsMap();
+
+      function persistVotedProposals() {
+        try {
+          storage.set(PROPOSAL_VOTES_STORAGE_KEY, JSON.stringify(votedProposals));
+        } catch (_) {}
+        try {
+          const ids = Object.keys(votedProposals).filter((k) => votedProposals[k]);
+          const proto = window.location && window.location.protocol;
+          const secureAttr = proto === "https:" ? "; Secure" : "";
+          document.cookie =
+            PROPOSAL_VOTES_COOKIE + "=" + encodeURIComponent(ids.join(",")) +
+            "; Max-Age=31536000; Path=/; SameSite=Lax" + secureAttr;
+        } catch (_) {}
+      }
+
+      if (Object.keys(votedProposals).length > 0) {
+        persistVotedProposals();
+      }
+
+      function getProposalCounterUrl(id) {
+        return "https://craftwill.github.io/alpoge-riemann-lean-viewer/proposals/" + encodeURIComponent(id);
+      }
+
+      function isLiveHttp() {
+        const proto = window.location && window.location.protocol;
+        return proto === "http:" || proto === "https:";
+      }
+
+      function updateProposalVotePillUI(id) {
+        const pill = document.querySelector('.proposal-vote-pill[data-vote-id="' + id + '"]');
+        if (!pill) return;
+        const valNode = pill.querySelector(".proposal-vote-val");
+        const voted = !!votedProposals[id];
+        pill.classList.toggle("is-voted", voted);
+        if (!isLiveHttp()) {
+          if (valNode) valNode.textContent = "local";
+          pill.classList.add("is-local");
+          pill.setAttribute("title", "Public proposal votes active on live site");
+          return;
+        }
+        const cnt = proposalVoteCounts[id];
+        if (typeof cnt === "number" && Number.isFinite(cnt)) {
+          if (valNode) valNode.textContent = formatNum(cnt);
+          pill.classList.remove("is-local");
+          pill.setAttribute(
+            "title",
+            voted
+              ? "Public votes: " + formatNum(cnt) + " (you voted)"
+              : "Public votes: " + formatNum(cnt) + " — tick to vote"
+          );
+        } else {
+          if (valNode) valNode.textContent = "—";
+          pill.classList.add("is-local");
+        }
+      }
+
+      function loadProposalVoteCounts() {
+        const list = getProposalsList();
+        if (!isLiveHttp()) {
+          list.forEach((p) => updateProposalVotePillUI(p.id));
+          return;
+        }
+        list.forEach((p) => updateProposalVotePillUI(p.id));
+        if (proposalVotesFetchStarted || typeof fetch !== "function") return;
+        proposalVotesFetchStarted = true;
+        list.forEach((p) => {
+          const endpoint = "https://hitscounter.dev/api/history?url=" + encodeURIComponent(getProposalCounterUrl(p.id));
+          fetch(endpoint, { method: "GET", mode: "cors", cache: "no-store" })
+            .then((res) => (res && res.ok ? res.json() : null))
+            .then((data) => {
+              if (data && typeof data.total_hits === "number" && Number.isFinite(data.total_hits)) {
+                proposalVoteCounts[p.id] = data.total_hits;
+                updateProposalVotePillUI(p.id);
+                const ta = document.getElementById("proposalsJsonOutput");
+                if (ta) ta.value = buildProposalsJson();
+              }
+            })
+            .catch(() => {});
+        });
+      }
+
+      function recordProposalVote(id) {
+        if (!id || votedProposals[id]) {
+          updateProposalVotePillUI(id);
+          return;
+        }
+        if (!isLiveHttp() || typeof fetch !== "function") return;
+        if (navigator && navigator.webdriver === true) return;
+
+        // Synchronously mark voted before fetch to prevent double-click / F5 spam
+        votedProposals[id] = 1;
+        persistVotedProposals();
+        if (typeof proposalVoteCounts[id] === "number") {
+          proposalVoteCounts[id] += 1;
+        }
+        updateProposalVotePillUI(id);
+
+        const endpoint = "https://hitscounter.dev/api/hit?url=" + encodeURIComponent(getProposalCounterUrl(id)) + "&output=json";
+        fetch(endpoint, { method: "GET", mode: "cors", cache: "no-store" })
+          .then((res) => (res && res.ok ? res.json() : null))
+          .then((data) => {
+            if (data && typeof data.total_hits === "number" && Number.isFinite(data.total_hits)) {
+              proposalVoteCounts[id] = data.total_hits;
+              updateProposalVotePillUI(id);
+              const ta = document.getElementById("proposalsJsonOutput");
+              if (ta) ta.value = buildProposalsJson();
+            }
+          })
+          .catch(() => {});
+      }
+
       function getProposalsList() {
         if (DATA.interactive_features && Array.isArray(DATA.interactive_features.next_proposals)) {
           return DATA.interactive_features.next_proposals;
@@ -5668,7 +5890,8 @@
         const items = list.map((p) => ({
           id: p.id,
           title: p.title,
-          enabled: isProposalEnabled(p)
+          enabled: isProposalEnabled(p),
+          public_votes: typeof proposalVoteCounts[p.id] === "number" ? proposalVoteCounts[p.id] : null
         }));
         const enabledIds = items.filter((x) => x.enabled).map((x) => x.id);
         return JSON.stringify(
@@ -5961,19 +6184,32 @@
       function renderProposalsPanel() {
         const list = getProposalsList();
         const selectedCount = list.filter((p) => isProposalEnabled(p)).length;
+        const live = isLiveHttp();
         let html = '<div class="proposals-card" id="proposed-additions">';
-        html += '<div class="pe-kicker">Optional Future Additions · Interactive Feedback</div>';
+        html += '<div class="pe-kicker">Community Roadmap · Public Voting</div>';
         html += '<h3 class="card-title" style="margin-bottom:6px;">Proposed Next Additions <span class="badge badge-neutral" id="proposalsCountBadge">' + selectedCount + " / " + list.length + " selected</span></h3>";
-        html += '<p class="lead-text" style="font-size:13.5px;">Tick any optional deep dives, interactive tables, or Lean walkthroughs you want built next, then copy the JSON below and paste it back into the chat. (These checkboxes are feature requests and do not affect your Course Progress %.)</p>';
+        html += '<p class="lead-text" style="font-size:13.5px;">Tick any optional deep dives, interactive tables, or Lean walkthroughs you want built next — each tick adds a live public vote (1 vote per browser per proposal). These checkboxes are feature votes and do not affect your Course Progress %.</p>';
         html += '<ul class="proposals-list">';
         list.forEach((p) => {
           const on = isProposalEnabled(p);
+          const voted = !!votedProposals[p.id];
+          const cnt = proposalVoteCounts[p.id];
+          const voteText = !live ? "local" : (typeof cnt === "number" ? formatNum(cnt) : "—");
+          const pillCls = "proposal-vote-pill" + (voted ? " is-voted" : "") + (!live || typeof cnt !== "number" ? " is-local" : "");
+          const pillTip = !live
+            ? "Public proposal votes active on live site"
+            : (typeof cnt === "number"
+              ? (voted ? "Public votes: " + formatNum(cnt) + " (you voted)" : "Public votes: " + formatNum(cnt) + " — tick to vote")
+              : "Loading public votes…");
           html += '<li class="proposal-item' + (on ? " selected" : "") + '" data-proposal-id="' + escapeHtml(p.id) + '">';
-          html += '<input type="checkbox" ' + (on ? "checked" : "") + ' aria-label="Select proposal ' + escapeHtml(p.title) + '" />';
+          html += '<input type="checkbox" ' + (on ? "checked" : "") + ' aria-label="Vote for proposal ' + escapeHtml(p.title) + '" />';
           html += '<div class="proposal-body">';
           html += '<div class="proposal-head">';
           html += '<span class="proposal-title">' + escapeHtml(p.title) + "</span>";
+          html += '<span class="proposal-head-meta">';
+          html += '<span class="' + pillCls + '" data-vote-id="' + escapeHtml(p.id) + '" aria-live="polite" title="' + escapeHtml(pillTip) + '"><span class="view-counter-label">Votes</span><span class="view-counter-sep">·</span><span class="proposal-vote-val">' + voteText + "</span></span>";
           html += '<span class="badge">' + escapeHtml(p.category || "Addition") + "</span>";
+          html += "</span>";
           html += "</div>";
           html += '<p class="proposal-desc">' + formatInlineCode(p.description) + "</p>";
           html += "</div>";
@@ -5982,13 +6218,24 @@
         html += "</ul>";
         html += '<div class="proposals-actions">';
         html += '<div class="proposals-btn-group">';
-        html += '<button type="button" class="primary-action-btn" id="copyProposalsJsonBtn">Copy Proposals JSON</button>';
         html += '<button type="button" class="small-action-btn" id="selectAllProposalsBtn">Select all</button>';
         html += '<button type="button" class="small-action-btn" id="clearAllProposalsBtn">Clear all</button>';
         html += "</div>";
-        html += '<span id="copyProposalsStatus" style="font-size:12px;color:var(--text-muted);">Live JSON ready to paste</span>';
+        html += '<span style="font-size:12px;color:var(--text-muted);">Live vote counts update automatically</span>';
         html += "</div>";
-        html += '<textarea class="proposals-json-box" id="proposalsJsonOutput" readonly aria-label="Selected proposals JSON">' + escapeHtml(buildProposalsJson()) + "</textarea>";
+        html += '<details class="proposals-dev-box">';
+        html += '<summary class="proposals-dev-summary"><span class="dev-only-badge">Dev Only</span><span>Copy Proposals JSON (maintainer export)</span></summary>';
+        html += '<div class="proposals-dev-body">';
+        html += '<p class="proposals-dev-note">Dev-only tool for site maintainers — copies your ticked proposals and current live vote counts as JSON.</p>';
+        html += '<div class="proposals-actions">';
+        html += '<div class="proposals-btn-group">';
+        html += '<button type="button" class="primary-action-btn" id="copyProposalsJsonBtn">Copy Proposals JSON (Dev)</button>';
+        html += "</div>";
+        html += '<span id="copyProposalsStatus" style="font-size:12px;color:var(--text-muted);">Dev-only JSON export</span>';
+        html += "</div>";
+        html += '<textarea class="proposals-json-box" id="proposalsJsonOutput" readonly aria-label="Dev-only selected proposals JSON">' + escapeHtml(buildProposalsJson()) + "</textarea>";
+        html += "</div>";
+        html += "</details>";
         html += "</div>";
         return html;
       }
@@ -7087,6 +7334,9 @@
         renderSidebar();
         updateCourseProgressUI();
         updateProposalsUI();
+        if (document.getElementById("proposed-additions")) {
+          loadProposalVoteCounts();
+        }
       }
 
       function navigateTo(targetId, pushHash, scrollTargetId) {
@@ -7253,11 +7503,17 @@
           selectedProposals[pid] = cb.checked;
           propItem.classList.toggle("selected", cb.checked);
           storage.set("alpoge_proposals", JSON.stringify(selectedProposals));
+          if (cb.checked) {
+            recordProposalVote(pid);
+          }
           updateProposalsUI();
           return;
         }
         if (e.target.id === "selectAllProposalsBtn") {
-          getProposalsList().forEach((p) => { selectedProposals[p.id] = true; });
+          getProposalsList().forEach((p) => {
+            selectedProposals[p.id] = true;
+            recordProposalVote(p.id);
+          });
           storage.set("alpoge_proposals", JSON.stringify(selectedProposals));
           document.querySelectorAll("li[data-proposal-id]").forEach((li) => {
             li.classList.add("selected");
@@ -7284,8 +7540,8 @@
           const txt = buildProposalsJson();
           if (ta) ta.value = txt;
           const markCopied = () => {
-            if (status) status.textContent = "Copied to clipboard — paste it in the chat!";
-            setTimeout(() => { if (status) status.textContent = "Live JSON ready to paste"; }, 2400);
+            if (status) status.textContent = "Copied dev JSON to clipboard!";
+            setTimeout(() => { if (status) status.textContent = "Dev-only JSON export"; }, 2400);
           };
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(txt).then(markCopied).catch(() => {
