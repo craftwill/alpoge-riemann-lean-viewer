@@ -2,6 +2,8 @@
 
 **Live Interactive Viewer:** [https://craftwill.github.io/alpoge-riemann-lean-viewer/](https://craftwill.github.io/alpoge-riemann-lean-viewer/)
 
+**Compact Edition Viewer:** [https://craftwill.github.io/alpoge-riemann-lean-viewer/compact.html](https://craftwill.github.io/alpoge-riemann-lean-viewer/compact.html) — the same viewer for the 794-file compact rewrite in [lsernau/grh-lean](https://github.com/lsernau/grh-lean) (`grh-compact/`).
+
 An interactive, self-contained HTML guide and proof-architecture viewer for exploring Levent Alpoge's 175,187-file Lean 4 formalization of the **Riemann Hypothesis (RH)** and **Generalized Riemann Hypothesis (GRH)**.
 
 ## Who This Viewer Is For
@@ -21,3 +23,4 @@ Built primarily for **software engineers, programmers, and technical readers** w
 - **Original Mathematical Work & Lean 4 Formalization:** **Levent Alpoge** (working with Claude).
 - **Original Distribution:** Published by Levent Alpoge at [alpo.ge](https://alpo.ge/) (`remark.pdf` and `lean.tar.gz.part01`–`part14`).
 - **About This Repository:** This repository hosts an **independent, unofficial educational HTML viewer** (`index.html`) designed to help readers explore the module architecture, proof roadmap, intuition, and terminology of the Lean 4 formalization. All credit for the underlying mathematics, `remark.pdf`, and Lean 4 formalization belongs to Levent Alpoge.
+- **Compact Edition:** `compact.html` maps `grh-compact/` from [lsernau/grh-lean](https://github.com/lsernau/grh-lean), a shorter rewrite of Alpoge's Lean proof produced at Anthropic with Claude (Apache 2.0).

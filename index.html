@@ -2443,6 +2443,134 @@
       .toy-cols { grid-template-columns: 1fr; }
       .axiom-grid { grid-template-columns: 1fr; }
     }
+  
+    /* ===== Edition switch banner ===== */
+    .edition-switch {
+      display: block;
+      margin: 18px auto 14px;
+      max-width: 1040px;
+      width: calc(100% - 48px);
+      padding: 16px 22px;
+      border: 2px solid var(--priority);
+      border-radius: 6px;
+      background: var(--priority-soft);
+      color: var(--text);
+      text-decoration: none;
+      box-shadow: 0 0 0 4px var(--priority-soft), 0 6px 22px -10px var(--priority-glow);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    .edition-switch:hover, .edition-switch:focus-visible {
+      transform: translateY(-1px);
+      background: var(--bg-elevated);
+      box-shadow: 0 0 0 4px var(--priority-soft), 0 10px 28px -10px var(--priority-glow);
+      outline: none;
+    }
+    .edition-switch-kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--priority);
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+    .edition-switch-title {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .edition-switch-sub {
+      display: block;
+      margin-top: 4px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+    @media (max-width: 720px) {
+      .edition-switch { width: calc(100% - 24px); padding: 13px 15px; }
+      .edition-switch-title { font-size: 17px; }
+    }
+
+    /* ===== Dirichlet table ===== */
+    .dir-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0 14px; }
+    .dir-label { font-size: 13px; color: var(--text-secondary); }
+    .dir-btn {
+      font-family: var(--font-mono); font-size: 12.5px; padding: 4px 10px; cursor: pointer;
+      background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    }
+    .dir-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .table-scroll { overflow-x: auto; margin: 6px 0 12px; }
+    .dir-table, .weil-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+    .dir-table th, .dir-table td, .weil-table th, .weil-table td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; vertical-align: top; }
+    .dir-table td:not(:first-child), .dir-table th:not(:first-child) { text-align: center; font-family: var(--font-mono); }
+    .dir-table thead th, .weil-table thead th { background: var(--bg-subtle); font-weight: 600; }
+    .dir-col-active { background: var(--priority-soft); }
+    .dir-prime-grid { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 6px; }
+    .dir-prime {
+      display: inline-flex; flex-direction: column; align-items: center; min-width: 40px; padding: 4px 6px;
+      font-family: var(--font-mono); font-size: 13px; border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--text-muted); background: var(--bg);
+    }
+    .dir-prime small { font-size: 10px; opacity: 0.8; }
+    .dir-prime.hit { color: var(--text); background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+    .weil-table tbody th { background: var(--bg-subtle); font-weight: 600; white-space: nowrap; }
+
+    /* ===== Tactic stepper ===== */
+    .ts-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 16px; }
+    @media (max-width: 900px) { .ts-grid { grid-template-columns: 1fr; } }
+    .ts-file { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); margin-bottom: 4px; }
+    .ts-source pre { font-size: 12px; overflow-x: auto; line-height: 1.6; }
+    .ts-line { display: block; white-space: pre; padding: 0 6px; border-left: 3px solid transparent; opacity: 0.55; }
+    .ts-line.ts-active { opacity: 1; background: var(--priority-soft); border-left-color: var(--priority); }
+    .ts-ln { display: inline-block; width: 2.4em; color: var(--text-muted); user-select: none; }
+    .ts-step-head { font-weight: 600; margin-bottom: 8px; }
+    .ts-goal-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .ts-goal { font-size: 12px; }
+    .ts-plain { font-size: 14px; color: var(--text-secondary); }
+    .ts-nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .ts-dots { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+    .ts-dot { width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--bg); cursor: pointer; padding: 0; }
+    .ts-dot.active { background: var(--priority); border-color: var(--priority); }
+
+    /* ===== Path tracer ===== */
+    .trace-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; font-size: 13.5px; }
+    .trace-controls select { font: inherit; padding: 4px 8px; background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border-strong); border-radius: var(--radius); }
+    .trace-chip-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+    .trace-chip { font-size: 11.5px; padding: 3px 8px; cursor: pointer; background: var(--bg); color: var(--text-secondary); border: 1px dashed var(--border-strong); border-radius: 12px; font-family: inherit; }
+    .trace-chip.active { border-style: solid; border-color: var(--priority); color: var(--text); background: var(--priority-soft); }
+    .trace-block { margin: 10px 0; }
+    .trace-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 6px; }
+    .trace-path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+    .trace-arrow { color: var(--priority); font-weight: 700; }
+    .trace-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 760px) { .trace-cols { grid-template-columns: 1fr; } }
+    .trace-empty { font-size: 13px; color: var(--text-muted); font-style: italic; }
+    .dep-pill.trace-start { border-color: var(--priority); background: var(--priority-soft); }
+    .dep-pill.trace-end { border-color: var(--accent); background: var(--accent-soft); }
+    .arch-node.trace-dim { opacity: 0.32; }
+    .arch-node.trace-self { outline: 3px solid var(--priority); outline-offset: 1px; }
+    .arch-node.trace-on-path { outline: 2px solid var(--priority); background: var(--priority-soft); }
+    .arch-node.trace-up { box-shadow: inset 4px 0 0 var(--dev); }
+    .arch-node.trace-down { box-shadow: inset 4px 0 0 var(--accent); }
+
+    /* ===== Treemap ===== */
+    .treemap-svg { width: 100%; height: auto; display: block; }
+    .tm-cell { cursor: pointer; }
+    .tm-cell rect { stroke: var(--bg-elevated); stroke-width: 1; transition: opacity 0.12s; }
+    .tm-cell:hover rect, .tm-cell:focus rect { opacity: 0.8; }
+    .tm-cell:focus { outline: none; }
+    .tm-core rect { fill: var(--core); }
+    .tm-dev rect { fill: var(--dev); }
+    .tm-support rect { fill: var(--support); }
+    .tm-conjecture rect { fill: var(--priority); }
+    .tm-cell text { fill: var(--bg); font-family: var(--font-sans); font-weight: 600; pointer-events: none; }
+    .tm-cell text.tm-num { font-weight: 400; opacity: 0.9; }
+    .tm-small { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   </style>
 </head>
 <body>
@@ -2505,12 +2633,17 @@
       </button>
 
       <div class="sidebar-footer">
-        <span>Offline Self-Contained Viewer</span>
+        <span>Single-File Viewer (view counter uses hitscounter.dev)</span>
         <span id="checklistTotal">0 deep dives</span>
       </div>
     </aside>
 
     <main class="main">
+      <a class="edition-switch" href="compact.html">
+        <span class="edition-switch-kicker">New · Compact edition</span>
+        <span class="edition-switch-title">Explore the compact GRH proof: 794 Lean files instead of 175,187 →</span>
+        <span class="edition-switch-sub">Same viewer, same features, built on lsernau/grh-lean: a shorter rewrite of this proof with published build and axiom checks.</span>
+      </a>
       <div class="content-container" id="mainContent">
         <article>
           <header class="page-header">
@@ -2566,7 +2699,7 @@
   },
   "conjecture": {
     "title": "The Riemann Hypothesis (RH) and Generalized Riemann Hypothesis (GRH)",
-    "summary": "This repository contains a complete, assumption-free Lean 4 formalization of the Riemann Hypothesis (RH) and the Generalized Riemann Hypothesis (GRH) for all Dirichlet L-functions. In plain terms, it proves that every non-trivial zero of the Riemann zeta function ζ(s) and every critical-strip zero of every Dirichlet L-function L(s, χ) lies exactly on the critical line Re(s) = 1/2, and equivalently that L(s, χ) has no zeros anywhere in the half-plane Re(s) > 1/2.",
+    "summary": "This repository is presented by its author as a complete Lean 4 formalization, with no sorry and no custom axioms, of the Riemann Hypothesis (RH) and the Generalized Riemann Hypothesis (GRH) for all Dirichlet L-functions. In plain terms, it claims to prove that every non-trivial zero of the Riemann zeta function ζ(s) and every critical-strip zero of every Dirichlet L-function L(s, χ) lies exactly on the critical line Re(s) = 1/2, and equivalently that L(s, χ) has no zeros anywhere in the half-plane Re(s) > 1/2.",
     "why_it_matters": "The Riemann Hypothesis has stood for over 150 years as the central open problem in number theory. The location of the zeros of ζ(s) and Dirichlet L-functions governs the finest possible error term in counting prime numbers and primes in arithmetic progressions. Proving GRH gives optimal square-root cancellation in prime distribution, unlocks sharp effective bounds across analytic and algebraic number theory, and unifies ideas spanning automorphic forms, arithmetic geometry, and spectral theory.",
     "proof_idea": "As described in remark.pdf, the proof is an automorphic descendant of Stepanov's polynomial/multiplicity method over function fields. Because whole numbers lack a naive derivative to create high-order multiplicity, the argument mimics multiplicity over the integers by chaining roughly √X iterated theta lifts between totally definite unitary groups U(X_0) → U(X_1) → ... → U(X_m). Seesaw identities convert the periods of these lifts into Bessel / Gross-Prasad periods, while Chowla-Selberg, Weyl, Siegel mass, and Bost slope inequalities establish divisibility and height bounds across an Iwasawa tower (chosen with Behrend-set combinatorics). Finally, Landau-type positivity criteria on weighted von Mangoldt sums translate these bounds into non-vanishing of L(s, χ) for Re(s) > 1/2, and functional-equation symmetry forces all critical-strip zeros onto Re(s) = 1/2.",
     "proof_idea_plain_english": [
@@ -3069,18 +3202,18 @@
       "path": "lean/src/Main.lean",
       "file_count": 2,
       "summary": "The two-file public front door of the entire repository. `Statements.lean` depends only on Mathlib and states RH and GRH in clean, self-contained definitions; `Main.lean` imports the final proof kernel and proves all five flagship theorems in 12 lines.",
-      "math_role": "Provides an auditable, zero-custom-definition target specification so any mathematician or Lean user can verify that the proved theorems match the classical Riemann Hypothesis and Generalized Riemann Hypothesis.",
+      "math_role": "Provides an auditable, Mathlib-only target specification (four short definitions built purely from Mathlib) so any mathematician or Lean user can verify that the proved theorems match the classical Riemann Hypothesis and Generalized Riemann Hypothesis.",
       "subfolders": [],
       "key_files": [
         {
           "path": "lean/src/Statements.lean",
           "role": "Mathlib-only definitions of RH and GRH targets",
-          "snippet": "def RiemannZetaZerosOnLine : Prop :=\n  ∀ s : ℂ, riemannZeta s = 0 → (¬∃ n : ℕ, s = -2 * ((n : ℂ) + 1)) → s ≠ 1 → s.re = 1 / 2\n\ndef DirichletLNonvanishingRightOfHalf : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    1 / 2 < s.re → (χ ≠ 1 ∨ s ≠ 1) → DirichletCharacter.LFunction χ s ≠ 0\n\ndef DirichletLZerosOnLine : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2"
+          "snippet": "import Mathlib\n\ndef RiemannZetaZerosOnLine : Prop :=\n  ∀ s : ℂ, riemannZeta s = 0 → (¬∃ n : ℕ, s = -2 * ((n : ℂ) + 1)) → s ≠ 1 → s.re = 1 / 2\n\ndef DirichletLNonvanishingRightOfHalf : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    1 / 2 < s.re → (χ ≠ 1 ∨ s ≠ 1) → DirichletCharacter.LFunction χ s ≠ 0\n\ndef DirichletLZerosOnLine : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2\n\ndef PrimitiveDirichletLZerosOnLine : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsPrimitive →\n    ∀ s : ℂ, 0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2"
         },
         {
           "path": "lean/src/Main.lean",
           "role": "Final theorem declarations proving RH and GRH",
-          "snippet": "import Statements\nimport Supplements.Kernels.MainTheoremsAll\n\ntheorem riemannHypothesis : RiemannHypothesis := rhOfAll\ntheorem riemannZeta_eq_zero_re : RiemannZetaZerosOnLine := rhOfAll\ntheorem LFunction_ne_zero_of_half_lt_re : DirichletLNonvanishingRightOfHalf := allChi\ntheorem LFunction_eq_zero_re : DirichletLZerosOnLine := claimAll.2.1\ntheorem LFunction_eq_zero_re_of_isPrimitive : PrimitiveDirichletLZerosOnLine := critAll"
+          "snippet": "import Statements\nimport Supplements.Kernels.MainTheoremsAll\n\ntheorem riemannHypothesis : RiemannHypothesis := rhOfAll\n\ntheorem riemannZeta_eq_zero_re : RiemannZetaZerosOnLine := rhOfAll\n\ntheorem LFunction_ne_zero_of_half_lt_re : DirichletLNonvanishingRightOfHalf := allChi\n\ntheorem LFunction_eq_zero_re : DirichletLZerosOnLine := claimAll.2.1\n\ntheorem LFunction_eq_zero_re_of_isPrimitive : PrimitiveDirichletLZerosOnLine := critAll"
         }
       ],
       "depends_on": [
@@ -3155,7 +3288,9 @@
       "depends_on": [
         "reciprocity-theory",
         "development-pillars",
-        "lemmata"
+        "lemmata",
+        "companion-theory",
+        "ground-theory"
       ],
       "deep_dive_topics": [
         "LocalToGlobal (5,501 files): Galois level structures and local-to-global transfers",
@@ -3218,7 +3353,12 @@
           "snippet": "def FirstInequality.{u} : Prop :=\n  ∀ (K L : Type u) [Field K] [NumberField K] [Field L] [NumberField L] [Algebra K L]\n    [IsGalois K L] [IsCyclic (L ≃ₐ[K] L)],\n    (Module.finrank K L : ℕ∞) ≤ ENat.card (IdeleClassGroup K ⧸ (ideleClassNorm K L).range)"
         }
       ],
-      "depends_on": [],
+      "depends_on": [
+        "companion-theory",
+        "development-pillars",
+        "formalism",
+        "reciprocity-theory"
+      ],
       "deep_dive_topics": [
         "HeightsAndTheta (6,410 files): Arithmetic Bézout, Chowla-Selberg, Effective Hilbert-Samuel, and Weil/Schrödinger theta models",
         "AutomorphicForms (542 files): adelic unitary groups, Dixmier-Malliavin, cuspidal projection, and Fourier-Whittaker expansions",
@@ -3281,7 +3421,10 @@
         }
       ],
       "depends_on": [
-        "lemmata"
+        "lemmata",
+        "companion-theory",
+        "development-pillars",
+        "formalism"
       ],
       "deep_dive_topics": [
         "ReductiveGroups (2,799 files): discrete series, lattice embeddings, local heights, and place counting",
@@ -3348,7 +3491,8 @@
         "formalism",
         "development-pillars",
         "reciprocity-theory",
-        "ground-theory"
+        "ground-theory",
+        "build-aid"
       ],
       "deep_dive_topics": [
         "SpectralGeometry (1,254 files): adelic Haar measure, lattice counting, and local-global proofs",
@@ -3414,7 +3558,8 @@
       "depends_on": [
         "development-pillars",
         "ground-theory",
-        "formalism"
+        "formalism",
+        "reciprocity-theory"
       ],
       "deep_dive_topics": [
         "CyclicBaseChange & CyclicBaseChangeLifts: automorphic base change for unitary/GL groups",
@@ -3671,7 +3816,14 @@
       "depends_on": [
         "formalism",
         "reciprocity-theory",
-        "AutomorphicArithmetic"
+        "AutomorphicArithmetic",
+        "build-aid",
+        "companion-theory",
+        "AutomorphicSpectrum",
+        "DiscreteGroups",
+        "WeilBound",
+        "ground-theory",
+        "positivity-theory"
       ],
       "deep_dive_topics": [
         "Semistable reduction and toroidal degeneration charts for polarized abelian varieties",
@@ -3771,7 +3923,13 @@
         "AutomorphicSpectrum",
         "reciprocity-theory",
         "ground-theory",
-        "formalism"
+        "formalism",
+        "build-aid",
+        "companion-theory",
+        "DiscreteGroups",
+        "EtaleCohomology",
+        "ResolutionOfSingularities",
+        "positivity-theory"
       ],
       "deep_dive_topics": [
         "Taylor-Wiles patching modules and U(3) Galois deformation rings",
@@ -3872,7 +4030,9 @@
         "ground-theory",
         "reciprocity-theory",
         "formalism",
-        "companion-theory"
+        "companion-theory",
+        "build-aid",
+        "positivity-theory"
       ],
       "deep_dive_topics": [
         "Root towers, GoodOrigin constructions, and the VolumeTheorem",
@@ -3975,7 +4135,8 @@
         "formalism",
         "companion-theory",
         "positivity-theory",
-        "build-aid"
+        "build-aid",
+        "ResolutionOfSingularities"
       ],
       "deep_dive_topics": [
         "Bernstein's Theorem A and mirabolic derivatives on p-adic GL_n",
@@ -4157,7 +4318,9 @@
           "snippet": "theorem functorialResolutionCharZero : FunctorialResolutionCharZero.{u} := by\n  obtain ⟨R, h1, h2, h3⟩ := EmbeddedResolution.strongResolutionOfSingularitiesCharZero.{u}\n  exact ⟨fun k _ _ X f _ _ _ =>\n    ⟨(R k X f).length, (R k X f).tower, (R k X f).isoZero, (R k X f).center, (R k X f).isBlowup⟩, h1, h2, h3⟩"
         }
       ],
-      "depends_on": [],
+      "depends_on": [
+        "AutomorphicArithmetic"
+      ],
       "deep_dive_topics": [
         "Functorial ideal principalization with radical centers in characteristic zero",
         "Blowup sequences, universal property, and properness in Lean's scheme library",
@@ -4467,7 +4630,7 @@
   "interactive_features": {
     "trust_audit": {
       "headline": "What Do You Actually Have to Trust?",
-      "summary": "Lean 4 follows the de Bruijn criterion: every proof across all 175,000+ files is checked by a small, independent type-checking kernel. You do not have to trust the 175,000 lines of proof tactics—you only need to verify three small things: (1) that Statements.lean and Main.lean state the real Riemann Hypothesis and GRH, (2) that Mathlib's definitions of riemannZeta and DirichletCharacter.LFunction match standard math, and (3) that no sorry or custom axiom appears anywhere in the dependency chain.",
+      "summary": "Lean 4 follows the de Bruijn criterion: every proof across all 175,000+ files is checked by a small, independent type-checking kernel. You do not have to trust the 175,000+ files of proof tactics—you only need to verify three small things: (1) that Statements.lean and Main.lean state the real Riemann Hypothesis and GRH, (2) that Mathlib's definitions of riemannZeta and DirichletCharacter.LFunction match standard math, and (3) that no sorry or custom axiom appears anywhere in the dependency chain. Note: this viewer has not itself built the project or run #print axioms; use the command below to check the axioms yourself.",
       "files_audited": [
         {
           "path": "lean/src/Statements.lean",
@@ -4512,13 +4675,13 @@
         {
           "title": "Statements.lean (Full 16 lines — Mathlib-only target specs)",
           "file": "lean/src/Statements.lean",
-          "code": "import Mathlib\n\ndef RiemannZetaZerosOnLine : Prop :=\n  ∀ s : ℂ, riemannZeta s = 0 → (¬∃ n : ℕ, s = -2 * ((n : ℂ) + 1)) → s ≠ 1 → s.re = 1 / 2\n\ndef DirichletLNonvanishingRightOfHalf : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    1 / 2 < s.re → (χ ≠ 1 ∨ s ≠ 1) → DirichletCharacter.LFunction χ s ≠ 0\n\ndef DirichletLZerosOnLine : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2",
+          "code": "import Mathlib\n\ndef RiemannZetaZerosOnLine : Prop :=\n  ∀ s : ℂ, riemannZeta s = 0 → (¬∃ n : ℕ, s = -2 * ((n : ℂ) + 1)) → s ≠ 1 → s.re = 1 / 2\n\ndef DirichletLNonvanishingRightOfHalf : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    1 / 2 < s.re → (χ ≠ 1 ∨ s ≠ 1) → DirichletCharacter.LFunction χ s ≠ 0\n\ndef DirichletLZerosOnLine : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),\n    0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2\n\ndef PrimitiveDirichletLZerosOnLine : Prop :=\n  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsPrimitive →\n    ∀ s : ℂ, 0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2",
           "audit_note": "Imports only Mathlib. Every symbol (ℂ, riemannZeta, DirichletCharacter.LFunction) comes straight from Lean's community standard library."
         },
         {
           "title": "Main.lean (Full 12 lines — Public proof exports)",
           "file": "lean/src/Main.lean",
-          "code": "import Statements\nimport Supplements.Kernels.MainTheoremsAll\n\ntheorem riemannHypothesis : RiemannHypothesis := rhOfAll\ntheorem riemannZeta_eq_zero_re : RiemannZetaZerosOnLine := rhOfAll\ntheorem LFunction_ne_zero_of_half_lt_re : DirichletLNonvanishingRightOfHalf := allChi\ntheorem LFunction_eq_zero_re : DirichletLZerosOnLine := claimAll.2.1\ntheorem LFunction_eq_zero_re_of_isPrimitive : PrimitiveDirichletLZerosOnLine := critAll",
+          "code": "import Statements\nimport Supplements.Kernels.MainTheoremsAll\n\ntheorem riemannHypothesis : RiemannHypothesis := rhOfAll\n\ntheorem riemannZeta_eq_zero_re : RiemannZetaZerosOnLine := rhOfAll\n\ntheorem LFunction_ne_zero_of_half_lt_re : DirichletLNonvanishingRightOfHalf := allChi\n\ntheorem LFunction_eq_zero_re : DirichletLZerosOnLine := claimAll.2.1\n\ntheorem LFunction_eq_zero_re_of_isPrimitive : PrimitiveDirichletLZerosOnLine := critAll",
           "audit_note": "Zero sorry, zero custom axiom declarations. Each theorem is a one-line term proof checked by the Lean 4 kernel."
         }
       ],
@@ -4634,10 +4797,8 @@
           "symbol": "Formalism.VW.critLine, rh_of_every",
           "file": "lean/src/Formalism/GammaFactorNonvanishing/CritLine.lean",
           "module_id": "formalism",
-          "plain_role": "Uses the completed L-function functional equation (s ↔ 1 - s) and gamma-factor non-vanishing to turn Re(s) > 1/2 non-vanishing into Re(s) = 1/2 for the whole critical strip.",
-          "calls": [
-            "formalism_landau"
-          ]
+          "plain_role": "Uses the completed L-function functional equation (s ↔ 1 - s) and gamma-factor non-vanishing to turn Re(s) > 1/2 non-vanishing into Re(s) = 1/2 for the whole critical strip. It is a short, self-contained argument: it needs only the half-plane result (UpperTheory.EveryCharacter) as input and does not use the Landau prime-sum machinery.",
+          "calls": []
         },
         {
           "id": "automorphic_every_char",
@@ -4650,7 +4811,8 @@
           "calls": [
             "theta_pair_lifts",
             "modularity_threshold",
-            "galois_local_global"
+            "galois_local_global",
+            "formalism_landau"
           ]
         },
         {
@@ -4670,7 +4832,7 @@
           "symbol": "RHofG, G(χ, x) ≥ -C x^(1/2 + ε)",
           "file": "lean/src/Formalism/Statement.lean",
           "module_id": "formalism",
-          "plain_role": "Converts non-vanishing of L(s, χ) in Re(s) > 1/2 into a concrete lower bound on weighted von Mangoldt prime sums G(χ, x).",
+          "plain_role": "States the Landau-type criterion RHofG: if the weighted von Mangoldt prime sum satisfies the lower bound G(χ, x) ≥ -C·x^(1/2 + ε) for every ε > 0, then L(s, χ) has no zeros with Re(s) > 1/2 (and RH holds). The half-plane side of the proof works by establishing that lower bound.",
           "calls": [
             "ground_heights",
             "reciprocity_cft"
@@ -5516,41 +5678,6 @@
     },
     "next_proposals": [
       {
-        "id": "dirichlet-mod4-mod5-table",
-        "category": "Worked Examples",
-        "title": "Interactive Dirichlet Character Table (mod 4 & mod 5)",
-        "description": "Explore concrete character tables for N = 4 and N = 5, toggle remainder filters, and watch how χ(n) isolates 4k+1 vs. 4k+3 primes up to 100.",
-        "default_enabled": false
-      },
-      {
-        "id": "interactive-tactic-stepper",
-        "category": "Lean 4 Walkthrough",
-        "title": "Step-by-Step Lean Tactic Walkthrough of CritLine.lean",
-        "description": "Click through the actual 17-line proof of Formalism.VW.critLine showing the evolving Lean goal state at every tactic line.",
-        "default_enabled": false
-      },
-      {
-        "id": "classical-vs-weil-rh",
-        "category": "Proof Intuition",
-        "title": "Classical RH vs. Weil's Function-Field RH Comparison",
-        "description": "Side-by-side table showing why RH over finite-field curves was solved in the 1940s–1970s and how iterated theta lifts bridge the gap to ℤ.",
-        "default_enabled": false
-      },
-      {
-        "id": "dependency-path-tracer",
-        "category": "Interactive Visuals",
-        "title": "Shortest-Path Tracer in the Proof Architecture Graph",
-        "description": "Click any module node in the Architecture Graph to highlight all upstream dependencies, downstream dependents, and its shortest path to Main.lean.",
-        "default_enabled": false
-      },
-      {
-        "id": "module-size-treemap",
-        "category": "Repository Analytics",
-        "title": "Interactive File-Count Treemap of All 175,000+ Lean Files",
-        "description": "Visual treemap comparing the relative size of AbelianVarietyTheory (99k), Formalism (18k), AutomorphicArithmetic (18k), and every other module.",
-        "default_enabled": false
-      },
-      {
         "id": "pdf-remark-bridge",
         "category": "Paper-to-Code Map",
         "title": "Section-by-Section Map from remark.pdf to Lean Modules",
@@ -5563,8 +5690,217 @@
         "title": "One-Click Local Lean Verification Script Generator",
         "description": "Generate a copyable PowerShell / Bash script that runs #print axioms on all 5 Main.lean theorems and greps for sorry/axiom across the repo.",
         "default_enabled": false
+      },
+      {
+        "id": "original-vs-compact-map",
+        "category": "Compact Edition",
+        "title": "Original ↔ Compact Module Map",
+        "description": "A side-by-side table that matches each module of this 175,187-file formalization to the folders of the 794-file compact edition, with file counts before and after.",
+        "default_enabled": false
+      },
+      {
+        "id": "readable-edition-viewer",
+        "category": "Compact Edition",
+        "title": "A Third Viewer for the Readable Edition (grh/, ~300k lines)",
+        "description": "The same viewer for grh-lean's readable edition, which has the richest documentation: GUIDE.md, INDEX.md and a results-and-sources table.",
+        "default_enabled": false
+      },
+      {
+        "id": "shrink-story",
+        "category": "Compact Edition",
+        "title": "How 175,187 Files Became 794",
+        "description": "An illustrated walkthrough of what the compact rewrite kept, re-proved with other arguments, or moved into its background library Lib/.",
+        "default_enabled": false
       }
-    ]
+    ],
+    "tactic_stepper": {
+      "title": "Step-by-Step Lean Tactic Walkthrough: Formalism.VW.critLine",
+      "intro": "This is the real proof that moves every zero onto the critical line once the half-plane result is known. Step through it line by line. The goal states are written by hand from the source to explain each tactic; they are simplified, not raw Lean output (`…` hides hypotheses that did not change).",
+      "file": "lean/src/Formalism/GammaFactorNonvanishing/CritLine.lean",
+      "first_line": 11,
+      "source_lines": [
+        "theorem Formalism.VW.critLine (h : UpperTheory.EveryCharacter) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (hχ : χ.IsPrimitive) (s : ℂ)",
+        "    (h0 : 0 < s.re) (h1 : s.re < 1) (hz : LFunction χ s = 0) : s.re = 1 / 2 := by",
+        "  have hs0 : s ≠ 0 := fun e => by simp [e] at h0",
+        "  have hs1 : s ≠ 1 := fun e => by simp [e] at h1",
+        "  by_contra hne",
+        "  rcases lt_or_gt_of_ne hne with hlt | hgt",
+        "  · have hinv : χ⁻¹.IsPrimitive := by",
+        "      rw [isPrimitive_def, conductor_inv]; exact hχ",
+        "    have hc : completedLFunction χ s = 0 := by",
+        "      rw [LFunction_eq_completed_div_gammaFactor χ s (Or.inl hs0)] at hz",
+        "      exact (div_eq_zero_iff.1 hz).resolve_right (Formalism.VW.gammaFactor_ne_zero χ h0)",
+        "    have hfe := hinv.completedLFunction_one_sub s",
+        "    rw [inv_inv, hc, mul_zero] at hfe",
+        "    have h2 : (1 - s) ≠ 0 := sub_ne_zero.2 hs1.symm",
+        "    refine h N χ⁻¹ (1 - s) (by rw [sub_re, one_re]; linarith) (Or.inr fun e => hs0 (by linear_combination -e)) ?_",
+        "    rw [LFunction_eq_completed_div_gammaFactor χ⁻¹ (1 - s) (Or.inl h2), hfe, zero_div]",
+        "  · exact h N χ s hgt (Or.inr hs1) hz"
+      ],
+      "steps": [
+        {
+          "lines": [
+            11,
+            12
+          ],
+          "tactic": "theorem Formalism.VW.critLine … := by",
+          "goal": "h : UpperTheory.EveryCharacter\nN : ℕ\nχ : DirichletCharacter ℂ N\nhχ : χ.IsPrimitive\ns : ℂ\nh0 : 0 < s.re\nh1 : s.re < 1\nhz : LFunction χ s = 0\n⊢ s.re = 1 / 2",
+          "plain": "The statement: given the half-plane result `h` (no zeros with Re(s) > 1/2) and a zero `s` of a primitive L(s, χ) inside the critical strip, prove that s sits exactly on Re(s) = 1/2. Everything above the ⊢ is what we may use; the line after ⊢ is what we must prove."
+        },
+        {
+          "lines": [
+            13,
+            13
+          ],
+          "tactic": "have hs0 : s ≠ 0",
+          "goal": "h : UpperTheory.EveryCharacter\nN : ℕ\nχ : DirichletCharacter ℂ N\nhχ : χ.IsPrimitive\ns : ℂ\nh0 : 0 < s.re\nh1 : s.re < 1\nhz : LFunction χ s = 0\nhs0 : s ≠ 0\n⊢ s.re = 1 / 2",
+          "plain": "Record that s ≠ 0: if s were 0, its real part would be 0, contradicting 0 < s.re. `simp [e] at h0` does that check automatically."
+        },
+        {
+          "lines": [
+            14,
+            14
+          ],
+          "tactic": "have hs1 : s ≠ 1",
+          "goal": "h : UpperTheory.EveryCharacter\nN : ℕ\nχ : DirichletCharacter ℂ N\nhχ : χ.IsPrimitive\ns : ℂ\nh0 : 0 < s.re\nh1 : s.re < 1\nhz : LFunction χ s = 0\nhs0 : s ≠ 0\nhs1 : s ≠ 1\n⊢ s.re = 1 / 2",
+          "plain": "Likewise s ≠ 1, because s.re < 1. These two facts are needed later to divide safely and to avoid the pole at s = 1."
+        },
+        {
+          "lines": [
+            15,
+            15
+          ],
+          "tactic": "by_contra hne",
+          "goal": "…\nhne : ¬s.re = 1 / 2\n⊢ False",
+          "plain": "Proof by contradiction: assume the zero is NOT on the critical line and aim to derive `False`."
+        },
+        {
+          "lines": [
+            16,
+            16
+          ],
+          "tactic": "rcases lt_or_gt_of_ne hne with hlt | hgt",
+          "goal": "Case 1 (left of the line):\n…\nhlt : s.re < 1 / 2\n⊢ False\n\nCase 2 (right of the line):\n…\nhgt : s.re > 1 / 2\n⊢ False",
+          "plain": "If Re(s) ≠ 1/2, it is either smaller or larger. `rcases` splits the proof into those two cases, like a `match` with two arms."
+        },
+        {
+          "lines": [
+            17,
+            18
+          ],
+          "tactic": "have hinv : χ⁻¹.IsPrimitive",
+          "goal": "Case 1:\n…\nhlt : s.re < 1 / 2\nhinv : χ⁻¹.IsPrimitive\n⊢ False",
+          "plain": "Case 1 starts. The functional equation relates χ to its inverse character χ⁻¹, so first check that χ⁻¹ is primitive too (inverting a character does not change its conductor)."
+        },
+        {
+          "lines": [
+            19,
+            21
+          ],
+          "tactic": "have hc : completedLFunction χ s = 0",
+          "goal": "Case 1:\n…\nhc : completedLFunction χ s = 0\n⊢ False",
+          "plain": "L(s, χ) equals the completed L-function divided by a gamma factor. Since L(s, χ) = 0 and the gamma factor is never 0 when Re(s) > 0 (the helper lemma `gammaFactor_ne_zero` just above), the completed L-function must vanish at s."
+        },
+        {
+          "lines": [
+            22,
+            23
+          ],
+          "tactic": "have hfe := hinv.completedLFunction_one_sub s",
+          "goal": "Case 1:\n…\nhfe : completedLFunction χ⁻¹ (1 - s) = 0\n⊢ False",
+          "plain": "The functional equation (mirror symmetry s ↔ 1 − s) for χ⁻¹ says: the completed L-function of χ⁻¹ at 1 − s is a factor times the completed L-function of χ at s. Rewriting with `hc` turns that product into 0."
+        },
+        {
+          "lines": [
+            24,
+            24
+          ],
+          "tactic": "have h2 : (1 - s) ≠ 0",
+          "goal": "Case 1:\n…\nh2 : 1 - s ≠ 0\n⊢ False",
+          "plain": "Another small fact for safe division: 1 − s ≠ 0 because s ≠ 1."
+        },
+        {
+          "lines": [
+            25,
+            25
+          ],
+          "tactic": "refine h N χ⁻¹ (1 - s) … ?_",
+          "goal": "Case 1:\n…\n⊢ LFunction χ⁻¹ (1 - s) = 0",
+          "plain": "The mirror point 1 − s has real part 1 − Re(s) > 1/2 (`linarith`, from hlt). The half-plane result `h` says L(·, χ⁻¹) has no zero there, so to reach `False` it is enough to show L(1 − s, χ⁻¹) = 0. `?_` leaves exactly that as the new goal."
+        },
+        {
+          "lines": [
+            26,
+            26
+          ],
+          "tactic": "rw [LFunction_eq_completed_div_gammaFactor …, hfe, zero_div]",
+          "goal": "Case 1: no goals ✓\n\nCase 2:\n…\nhgt : s.re > 1 / 2\n⊢ False",
+          "plain": "Write L(1 − s, χ⁻¹) as completed ÷ gamma factor, substitute `hfe` (the completed value is 0), and 0 ÷ anything = 0. Case 1 is closed: an off-line zero on the left would force a zero on the right, which `h` forbids."
+        },
+        {
+          "lines": [
+            27,
+            27
+          ],
+          "tactic": "exact h N χ s hgt (Or.inr hs1) hz",
+          "goal": "no goals ✓  (proof complete)",
+          "plain": "Case 2 is immediate: s itself lies right of the line, where `h` says L(s, χ) ≠ 0, contradicting `hz`. Both cases are impossible, so Re(s) = 1/2."
+        }
+      ],
+      "note": "To see the exact goal states, open the file in VS Code with the Lean 4 extension and place the cursor after each tactic."
+    },
+    "weil_comparison": {
+      "title": "Classical RH vs. Weil's Function-Field RH",
+      "intro": "The Riemann Hypothesis has a twin for curves over finite fields, which was proved in the 20th century. Comparing the two shows what this proof has to imitate.",
+      "columns": [
+        "",
+        "Function fields (curves over 𝔽_q)",
+        "Whole numbers ℤ (this proof)"
+      ],
+      "rows": [
+        [
+          "The objects",
+          "Polynomials over a finite field 𝔽_q, and a curve C of genus g",
+          "Whole numbers, primes, and Dirichlet characters χ mod N"
+        ],
+        [
+          "The zeta function",
+          "Z(C, T): a rational function with exactly 2g zeros",
+          "ζ(s) and L(s, χ): products over all primes, extended to the complex plane"
+        ],
+        [
+          "What RH says",
+          "Every zero has absolute value 1/√q; equivalently |#C(𝔽_q) − (q + 1)| ≤ 2g·√q",
+          "Every critical-strip zero has Re(s) = 1/2; equivalently prime counts deviate from their trend by about √x"
+        ],
+        [
+          "Status",
+          "Proved: Weil (1948) for curves, Deligne (1974) for all varieties. Stepanov (1969) and Bombieri (1973) gave elementary proofs for curves",
+          "Open since Riemann (1859) in published mathematics; this formalization claims a Lean proof (see the Trust Audit)"
+        ],
+        [
+          "Source of 'derivatives'",
+          "The derivative d/dx of polynomials, and the Frobenius map x ↦ x^q",
+          "No naive d/dn on integers; replaced by ~√X iterated theta lifts between unitary groups"
+        ],
+        [
+          "Auxiliary object",
+          "A low-degree polynomial vanishing to high order at every point of C(𝔽_q)",
+          "An automorphic form / theta lift with controlled Arakelov height"
+        ],
+        [
+          "Size vs. multiplicity",
+          "Degree of the polynomial ≥ (number of points) × (order of vanishing)",
+          "Height bounds vs. forced divisibility (Bost slope, Chowla–Selberg, Siegel mass) across a tower of number fields"
+        ],
+        [
+          "Final bound",
+          "Optimising the order of vanishing gives the √q error term",
+          "Optimising m ≈ √X gives G(χ, x) ≥ −C·x^(1/2+ε); Landau-type criteria then give L(s, χ) ≠ 0 for Re(s) > 1/2"
+        ]
+      ],
+      "note": "Stepanov's elementary method is the one this proof imitates. Weil's and Deligne's proofs rely on algebraic geometry (intersection theory, étale cohomology) that has no direct analogue over ℤ."
+    }
   },
   "pronunciation_guide": [
     {
@@ -5649,7 +5985,7 @@
     }
   ]
 }
-  </script>
+</script>
 
   <script>
     (function () {
@@ -5680,16 +6016,25 @@
         "call-stack-stepanov",
         "trust-audit-rosetta"
       ];
-      const CORE_IDS = [
-        "main-statements",
-        "formalism",
-        "ground-theory",
-        "reciprocity-theory",
-        "companion-theory",
-        "positivity-theory"
-      ];
+      const LAYOUT = Object.assign({
+        edition: "original",
+        core_ids: ["main-statements", "formalism", "ground-theory", "reciprocity-theory", "companion-theory", "positivity-theory"],
+        support_ids: ["supplements", "lemmata", "build-aid"],
+        pillar_meta_id: "development-pillars",
+        pillar_label: "Development (7 Math Pillars)",
+        sidebar_labels: { core: "Core Proof & Theory", dev: "Mathematical Foundations", support: "Support & Utilities" },
+        stat_labels: ["Total .lean files", "Core & Support (9 modules)", "Development (7 pillars)"],
+        intro_what_html: null,
+        arch_layers: null,
+        arch_lead_html: "How the 175,187 Lean 4 files connect from foundational algebraic geometry pillars up to the five public theorems in <code>Main.lean</code>.",
+        page_url: "https://craftwill.github.io/alpoge-riemann-lean-viewer/",
+        proposals_base: "https://craftwill.github.io/alpoge-riemann-lean-viewer/proposals/",
+        doc_title: "Riemann Hypothesis & GRH in Lean 4 — Interactive Proof Viewer for Software Engineers",
+        toy_col_label: "This Proof: Integers & Iterated Theta Lifts"
+      }, DATA.layout || {});
+      const CORE_IDS = LAYOUT.core_ids;
       const DEV_IDS = DATA.sections.filter((s) => s.group === "development").map((s) => s.id);
-      const SUPPORT_IDS = ["supplements", "lemmata", "build-aid"];
+      const SUPPORT_IDS = LAYOUT.support_ids;
       const ALL_VIEW_IDS = [...GUIDE_IDS, ...CORE_IDS, ...DEV_IDS, ...SUPPORT_IDS];
 
       const READABLE_GUIDE_IDS = [
@@ -5800,7 +6145,7 @@
         if (id === "visual-intuition") return "Visual Intuition (Primes & Critical Strip)";
         if (id === "call-stack-stepanov") return "Proof Call Stack & Stepanov Toy";
         if (id === "trust-audit-rosetta") return "Trust Audit & Lean 4 Rosetta Stone";
-        if (id === "development-pillars") return "Development (7 Math Pillars)";
+        if (id === LAYOUT.pillar_meta_id) return LAYOUT.pillar_label;
         return SECTION_MAP[id] ? SECTION_MAP[id].name : id;
       }
 
@@ -5903,7 +6248,7 @@
       }
 
       function getProposalCounterUrl(id) {
-        return "https://craftwill.github.io/alpoge-riemann-lean-viewer/proposals/" + encodeURIComponent(id);
+        return LAYOUT.proposals_base + encodeURIComponent(id);
       }
 
       function isLiveHttp() {
@@ -6181,21 +6526,21 @@
           { key: "guides", label: "Start Here & Guides", items: guideItems },
           {
             key: "core",
-            label: "Core Proof & Theory",
+            label: LAYOUT.sidebar_labels.core,
             items: CORE_IDS.map((id) => SECTION_MAP[id])
               .filter((s) => s && matchesQuery(s, q))
               .map((s) => ({ id: s.id, name: s.name, count: formatNum(s.file_count) }))
           },
           {
             key: "dev",
-            label: "Mathematical Foundations",
+            label: LAYOUT.sidebar_labels.dev,
             items: DEV_IDS.map((id) => SECTION_MAP[id])
               .filter((s) => s && matchesQuery(s, q))
               .map((s) => ({ id: s.id, name: s.name, count: formatNum(s.file_count) }))
           },
           {
             key: "support",
-            label: "Support & Utilities",
+            label: LAYOUT.sidebar_labels.support,
             items: SUPPORT_IDS.map((id) => SECTION_MAP[id])
               .filter((s) => s && matchesQuery(s, q))
               .map((s) => ({ id: s.id, name: s.name, count: formatNum(s.file_count) }))
@@ -6475,7 +6820,7 @@
         const st = DATA.stats;
 
         function renderAnnotatedProofIdea(text) {
-          const links = [
+          const links = DATA.conjecture.jargon_links || [
             { phrase: "automorphic descendant", id: "automorphic" },
             { phrase: "Stepanov's polynomial/multiplicity method", id: "stepanov" },
             { phrase: "function fields", id: "function-fields" },
@@ -6538,15 +6883,15 @@
         html += '<button type="button" class="jump-link" data-scroll-to="why-it-matters">Why It Matters</button><span>·</span>';
         html += '<button type="button" class="jump-link" data-scroll-to="big-picture-idea">Big-Picture Idea</button><span>·</span>';
         html += '<button type="button" class="jump-link" data-scroll-to="plain-english-walkthrough">Plain-English Version</button><span>·</span>';
-        html += '<button type="button" class="jump-link" data-scroll-to="jargon-legend">Jargon Legend (17)</button><span>·</span>';
+        html += '<button type="button" class="jump-link" data-scroll-to="jargon-legend">Jargon Legend (' + (c.jargon_legend || []).reduce((a, cl) => a + (cl.entries || []).length, 0) + ')</button><span>·</span>';
         html += '<button type="button" class="jump-link" data-nav="architecture-roadmap">Architecture Map →</button>';
         html += "</div>";
         html += "</div>";
 
         html += '<div class="stats-grid">';
-        html += '<div class="stat-card"><div class="stat-value">' + formatNum(st.total_files) + '</div><div class="stat-label">Total .lean files</div></div>';
-        html += '<div class="stat-card"><div class="stat-value">' + formatNum(st.core_and_support_files) + '</div><div class="stat-label">Core &amp; Support (9 modules)</div></div>';
-        html += '<div class="stat-card"><div class="stat-value">' + formatNum(st.development_files) + '</div><div class="stat-label">Development (7 pillars)</div></div>';
+        html += '<div class="stat-card"><div class="stat-value">' + formatNum(st.total_files) + '</div><div class="stat-label">' + escapeHtml(LAYOUT.stat_labels[0]) + '</div></div>';
+        html += '<div class="stat-card"><div class="stat-value">' + formatNum(st.core_and_support_files) + '</div><div class="stat-label">' + escapeHtml(LAYOUT.stat_labels[1]) + '</div></div>';
+        html += '<div class="stat-card"><div class="stat-value">' + formatNum(st.development_files) + '</div><div class="stat-label">' + escapeHtml(LAYOUT.stat_labels[2]) + '</div></div>';
         html += '<div class="stat-card"><div class="stat-value">5</div><div class="stat-label">Main.lean theorems</div></div>';
         html += "</div>";
 
@@ -6554,7 +6899,7 @@
         html += '<h2 class="card-title">About This Viewer</h2>';
         html += '<p class="lead-text">The <strong>Riemann Hypothesis</strong> predicts that every non-trivial zero of the Riemann zeta function lies on the critical line <code class="inline-code">Re(s) = 1/2</code> (and the <strong>Generalized Riemann Hypothesis</strong> extends this to all Dirichlet L-functions), governing how prime numbers are distributed. <strong>Lean 4</strong> is an interactive theorem prover and dependently typed programming language whose small kernel mechanically verifies every step of a formal proof.</p>';
         html += '<div class="viewer-intro-grid">';
-        html += '<div class="viewer-intro-item"><h3>What this viewer does</h3><p>Maps Levent Alpoge&#39;s ' + formatNum(st.total_files) + '-file Lean 4 formalization into an interactive dependency graph, a top-down call stack from <code class="inline-code">Main.lean</code>, visual intuition diagrams, a trust audit, and a clickable math-to-engineering glossary.</p></div>';
+        html += '<div class="viewer-intro-item"><h3>What this viewer does</h3><p>' + (LAYOUT.intro_what_html || ('Maps Levent Alpoge&#39;s ' + formatNum(st.total_files) + '-file Lean 4 formalization into an interactive dependency graph, a top-down call stack from <code class="inline-code">Main.lean</code>, visual intuition diagrams, a trust audit, and a clickable math-to-engineering glossary.')) + '</p></div>';
         html += '<div class="viewer-intro-item"><h3>Who it is for &amp; how to explore</h3><p>Built for software engineers and programmers without a math PhD. Start with the <button type="button" class="jump-link" data-nav="prime-crash-course">Prime Numbers &amp; GRH Crash Course</button>, inspect the <button type="button" class="jump-link" data-nav="architecture-roadmap">Architecture Map</button>, trace <button type="button" class="jump-link" data-nav="call-stack-stepanov">Main.lean&#39;s Call Stack</button>, or press <code class="inline-code">/</code> to search modules.</p></div>';
         html += "</div>";
         html += "</section>";
@@ -6569,7 +6914,7 @@
         html += '<div class="callout-label">How the Proof Works — Big-Picture Idea from remark.pdf</div>';
         html += '<div class="callout-jumps">';
         html += '<button type="button" class="jump-link" data-scroll-to="plain-english-walkthrough">Plain-English Version ↓</button>';
-        html += '<button type="button" class="jump-link" data-scroll-to="jargon-legend">Jargon Legend (17 terms) ↓</button>';
+        html += '<button type="button" class="jump-link" data-scroll-to="jargon-legend">Jargon Legend (' + (c.jargon_legend || []).reduce((a, cl) => a + (cl.entries || []).length, 0) + ' terms) ↓</button>';
         html += "</div>";
         html += "</div>";
         html += "<p>" + renderAnnotatedProofIdea(c.proof_idea) + "</p>";
@@ -6665,7 +7010,7 @@
         const po = DATA.proof_overview;
         const st = DATA.stats;
 
-        const archLayers = [
+        const archLayers = LAYOUT.arch_layers || [
           {
             id: "layer-entry",
             title: "Layer 4 — Public Entry & Final Assembly",
@@ -6705,10 +7050,10 @@
         html += '<span class="meta-sep">·</span>';
         html += '<span class="meta-cat-conjecture">Architecture &amp; Roadmap</span>';
         html += '<span class="meta-sep">·</span>';
-        html += '<span class="meta-num">16 modules · 6 proof stages</span>';
+        html += '<span class="meta-num">' + DATA.sections.length + ' modules · ' + po.steps.length + ' proof stages</span>';
         html += "</div>";
         html += '<h1 class="page-title">Architecture Map &amp; Proof Roadmap</h1>';
-        html += '<p class="lead-text">How the 175,187 Lean 4 files connect from foundational algebraic geometry pillars up to the five public theorems in <code>Main.lean</code>.</p>';
+        html += '<p class="lead-text">' + LAYOUT.arch_lead_html + '</p>';
         html += '<div class="page-toc">';
         html += '<span class="page-toc-label">Jump to:</span>';
         html += '<button type="button" class="jump-link" data-scroll-to="architecture-map">Module Map</button><span>·</span>';
@@ -6790,6 +7135,8 @@
         });
         html += "</div>";
 
+        html += buildPathTracerCard();
+        html += buildTreemapCard();
         html += renderMarkGuideDoneBar("architecture-roadmap", "Mark Architecture Map & Proof Roadmap as read");
         html += renderSectionFooter("architecture-roadmap");
         return html;
@@ -6991,6 +7338,7 @@
         html += '<p class="svg-caption">This formalization proves <code>LFunction_ne_zero_of_half_lt_re</code>: no zero can exist anywhere in the right half <code>Re(s) &gt; 1/2</code>. Toggle the mirror overlay to see why a hypothetical off-line zero at <code>0.28 + 18.5i</code> on the left would force a mirror zero at <code>0.72 + 18.5i</code> on the right—impossible! Therefore every critical-strip zero is locked onto <code>Re(s) = 1/2</code>.</p>';
         html += "</div>";
 
+        html += buildDirichletCard();
         html += renderMarkGuideDoneBar("visual-intuition", "Mark Visual Intuition as read");
         html += renderSectionFooter("visual-intuition");
         return html;
@@ -7059,6 +7407,7 @@
         html += '<div class="stack-tree" id="callStackTree">' + renderCallStackNode(cs.root_id, nodeMap) + "</div>";
         html += "</div>";
 
+        html += buildTacticStepperCard();
         html += '<div class="card" id="stepanov-toy-section">';
         html += '<h3 class="card-title">' + escapeHtml(toy.title) + "</h3>";
         if (toy.intro) html += '<p class="lead-text">' + formatInlineCode(toy.intro) + "</p>";
@@ -7067,12 +7416,13 @@
           html += '<h4 class="toy-step-title">Step ' + s.step + " — " + escapeHtml(s.name) + "</h4>";
           html += '<div class="toy-cols">';
           html += '<div class="toy-col"><div class="toy-col-label">Toy World: Polynomials over 𝔽_p[t]</div>' + formatInlineCode(s.toy_poly) + "</div>";
-          html += '<div class="toy-col"><div class="toy-col-label">This Proof: Integers &amp; Iterated Theta Lifts</div>' + formatInlineCode(s.riemann_proof) + "</div>";
+          html += '<div class="toy-col"><div class="toy-col-label">' + escapeHtml(LAYOUT.toy_col_label) + '</div>' + formatInlineCode(s.riemann_proof) + "</div>";
           html += "</div>";
           html += "</div>";
         });
         html += "</div>";
 
+        html += buildWeilComparisonCard();
         html += renderMarkGuideDoneBar("call-stack-stepanov", "Mark Proof Call Stack & Stepanov Toy as read");
         html += renderSectionFooter("call-stack-stepanov");
         return html;
@@ -7364,7 +7714,7 @@
             const consumers = USED_BY[nid] || [];
             const related = new Set([nid, ...deps, ...consumers]);
 
-            if (deps.includes("development-pillars")) {
+            if (deps.includes(LAYOUT.pillar_meta_id)) {
               DEV_IDS.forEach((d) => related.add(d));
             }
 
@@ -7447,6 +7797,367 @@
         });
       }
 
+
+      // ===== Added interactive features =====
+      const FEAT = DATA.interactive_features || {};
+      let dirMod = 4;
+      let dirResidue = 1;
+      let tacticStep = 0;
+      let traceNodeId = "";
+      let treemapMetric = "files";
+
+      // ---- 1. Dirichlet character table (mod 4 & mod 5) ----
+      const I_POW = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+      function iPowLabel(k) { return ["1", "i", "−1", "−i"][((k % 4) + 4) % 4]; }
+      function gcd(a, b) { while (b) { const t = a % b; a = b; b = t; } return a; }
+      function dirInfo(N) {
+        if (N === 4) {
+          return { phi: 2, units: [1, 3], chars: [
+            { name: "χ₀ (principal)", exp: { 1: 0, 3: 0 } },
+            { name: "χ₁ (real, the ±1 sign of 4k+1 vs 4k+3)", exp: { 1: 0, 3: 2 } }
+          ] };
+        }
+        const dlog = { 1: 0, 2: 1, 4: 2, 3: 3 }; // 2 generates (Z/5)ˣ: 2⁰=1, 2¹=2, 2²=4, 2³=3
+        const names = ["χ₀ (principal)", "χ₁ (complex, χ(2) = i)", "χ₂ (real: the Legendre symbol (n/5))", "χ₃ (complex, χ(2) = −i)"];
+        return { phi: 4, units: [1, 2, 3, 4], chars: [0, 1, 2, 3].map((j) => {
+          const exp = {};
+          [1, 2, 3, 4].forEach((a) => { exp[a] = (j * dlog[a]) % 4; });
+          return { name: names[j], exp: exp };
+        }) };
+      }
+      function dirIndicator(info, N, a, p) {
+        // (1/φ(N)) Σ_χ conj(χ(a)) χ(p): equals 1 when p ≡ a (mod N), else 0
+        const r = p % N;
+        if (gcd(r, N) !== 1) return 0;
+        let re = 0, im = 0;
+        info.chars.forEach((ch) => {
+          const k = ((ch.exp[r] - ch.exp[a]) % 4 + 4) % 4;
+          re += I_POW[k][0]; im += I_POW[k][1];
+        });
+        return Math.round((re / info.phi) * 1000) / 1000;
+      }
+      function buildDirichletBody() {
+        const N = dirMod;
+        const info = dirInfo(N);
+        if (!info.units.includes(dirResidue)) dirResidue = 1;
+        const primes = [];
+        for (let n = 2; n <= 100; n++) { let ok = true; for (let d = 2; d * d <= n; d++) if (n % d === 0) { ok = false; break; } if (ok) primes.push(n); }
+        let html = '<div class="dir-controls">';
+        html += '<span class="dir-label">Modulus N:</span>';
+        [4, 5].forEach((m) => { html += '<button type="button" class="dir-btn' + (m === N ? " active" : "") + '" data-dir-mod="' + m + '">mod ' + m + "</button>"; });
+        html += '<span class="dir-label" style="margin-left:14px;">Filter primes p ≡ a (mod ' + N + '), a =</span>';
+        info.units.forEach((a) => { html += '<button type="button" class="dir-btn' + (a === dirResidue ? " active" : "") + '" data-dir-res="' + a + '">' + a + "</button>"; });
+        html += "</div>";
+        html += '<div class="table-scroll"><table class="dir-table"><thead><tr><th>character \\ n mod ' + N + "</th>";
+        for (let n = 0; n < N; n++) html += "<th" + (n === dirResidue ? ' class="dir-col-active"' : "") + ">" + n + "</th>";
+        html += "</tr></thead><tbody>";
+        info.chars.forEach((ch) => {
+          html += "<tr><td>" + escapeHtml(ch.name) + "</td>";
+          for (let n = 0; n < N; n++) {
+            const v = gcd(n, N) === 1 ? iPowLabel(ch.exp[n]) : "0";
+            html += "<td" + (n === dirResidue ? ' class="dir-col-active"' : "") + ">" + v + "</td>";
+          }
+          html += "</tr>";
+        });
+        html += "</tbody></table></div>";
+        const hits = primes.filter((p) => dirIndicator(info, N, dirResidue, p) === 1);
+        html += '<div class="dir-prime-grid">';
+        primes.forEach((p) => {
+          const val = dirIndicator(info, N, dirResidue, p);
+          html += '<span class="dir-prime' + (val === 1 ? " hit" : "") + '" title="p = ' + p + ", p mod " + N + " = " + (p % N) + ", character filter = " + val + '">' + p + '<small>' + val + "</small></span>";
+        });
+        html += "</div>";
+        html += '<p class="svg-caption"><strong>' + hits.length + " of " + primes.length + "</strong> primes up to 100 satisfy p ≡ " + dirResidue + " (mod " + N + "). The small number under each prime is the <em>character filter</em> " +
+          "<code>(1/φ(N)) · Σ_χ conj(χ(a)) · χ(p)</code>, computed live from the table above: it is exactly 1 on the chosen class and 0 everywhere else. " +
+          "This is how Dirichlet L-functions L(s, χ) let number theorists study primes in one remainder class at a time, and why GRH for every χ controls primes in every arithmetic progression.</p>";
+        return html;
+      }
+      function buildDirichletCard() {
+        if (FEAT.dirichlet_table === false) return "";
+        let html = '<div class="svg-figure-card" id="dirichlet-table">';
+        html += '<div class="arch-figure-label">Interactive Figure 3 · Dirichlet Characters</div>';
+        html += '<h3 class="card-title" style="margin-bottom:10px;">Dirichlet Character Table (mod 4 &amp; mod 5): Filtering Primes by Remainder</h3>';
+        html += '<p class="lead-text" style="font-size:14px;">A Dirichlet character χ mod N is a periodic, multiplicative "pattern" on whole numbers. Its values are roots of unity (1, i, −1, −i here) on numbers coprime to N, and 0 otherwise. Pick a modulus and a remainder class to see the characters isolate primes in that class.</p>';
+        html += '<div id="dirichletBody">' + buildDirichletBody() + "</div>";
+        html += "</div>";
+        return html;
+      }
+
+      // ---- 2. Step-by-step tactic walkthrough ----
+      function buildTacticStepperBody() {
+        const ts = FEAT.tactic_stepper;
+        const steps = ts.steps || [];
+        if (tacticStep < 0) tacticStep = 0;
+        if (tacticStep >= steps.length) tacticStep = steps.length - 1;
+        const st = steps[tacticStep];
+        const first = ts.first_line || 1;
+        let html = '<div class="ts-grid">';
+        html += '<div class="ts-source"><div class="ts-file">' + escapeHtml(ts.file) + "</div><pre class=\"code-wrap\"><code>";
+        (ts.source_lines || []).forEach((line, i) => {
+          const ln = first + i;
+          const active = ln >= st.lines[0] && ln <= st.lines[1];
+          html += '<span class="ts-line' + (active ? " ts-active" : "") + '"><span class="ts-ln">' + ln + "</span>" + highlightLean(line) + "</span>";
+        });
+        html += "</code></pre></div>";
+        html += '<div class="ts-panel">';
+        html += '<div class="ts-step-head">Step ' + (tacticStep + 1) + " / " + steps.length + " · <code>" + escapeHtml(st.tactic) + "</code></div>";
+        html += '<div class="ts-goal-label">Goal state after this step</div>';
+        html += '<pre class="code-wrap ts-goal"><code>' + highlightLean(st.goal) + "</code></pre>";
+        html += '<p class="ts-plain">' + formatInlineCode(st.plain) + "</p>";
+        html += '<div class="ts-nav"><button type="button" class="small-action-btn" data-tactic-step="prev"' + (tacticStep === 0 ? " disabled" : "") + ">← Previous</button>";
+        html += '<span class="ts-dots">';
+        steps.forEach((_, i) => { html += '<button type="button" class="ts-dot' + (i === tacticStep ? " active" : "") + '" data-tactic-step="' + i + '" aria-label="Step ' + (i + 1) + '"></button>'; });
+        html += "</span>";
+        html += '<button type="button" class="small-action-btn" data-tactic-step="next"' + (tacticStep === steps.length - 1 ? " disabled" : "") + ">Next →</button></div>";
+        html += "</div></div>";
+        if (ts.note) html += '<p class="svg-caption">' + formatInlineCode(ts.note) + "</p>";
+        return html;
+      }
+      function buildTacticStepperCard() {
+        if (!FEAT.tactic_stepper) return "";
+        let html = '<div class="card" id="tactic-stepper">';
+        html += '<h3 class="card-title">' + escapeHtml(FEAT.tactic_stepper.title) + "</h3>";
+        if (FEAT.tactic_stepper.intro) html += '<p class="lead-text" style="font-size:14px;">' + formatInlineCode(FEAT.tactic_stepper.intro) + "</p>";
+        html += '<div id="tacticStepperBody">' + buildTacticStepperBody() + "</div></div>";
+        return html;
+      }
+
+      // ---- 3. Classical RH vs Weil's function-field RH ----
+      function buildWeilComparisonCard() {
+        const w = FEAT.weil_comparison;
+        if (!w) return "";
+        let html = '<div class="card" id="weil-comparison">';
+        html += '<h3 class="card-title">' + escapeHtml(w.title) + "</h3>";
+        if (w.intro) html += '<p class="lead-text" style="font-size:14px;">' + formatInlineCode(w.intro) + "</p>";
+        html += '<div class="table-scroll"><table class="weil-table"><thead><tr>';
+        (w.columns || []).forEach((c) => { html += "<th>" + escapeHtml(c) + "</th>"; });
+        html += "</tr></thead><tbody>";
+        (w.rows || []).forEach((r) => {
+          html += "<tr>" + r.map((cell, i) => (i === 0 ? "<th scope=\"row\">" + escapeHtml(cell) + "</th>" : "<td>" + formatInlineCode(cell) + "</td>")).join("") + "</tr>";
+        });
+        html += "</tbody></table></div>";
+        if (w.note) html += '<p class="svg-caption">' + formatInlineCode(w.note) + "</p>";
+        html += "</div>";
+        return html;
+      }
+
+      // ---- 4. Shortest-path tracer ----
+      function traceDepsOf(id) {
+        const s = SECTION_MAP[id];
+        const out = [];
+        ((s && s.depends_on) || []).forEach((x) => {
+          if (x === LAYOUT.pillar_meta_id) DEV_IDS.forEach((y) => out.push(y));
+          else if (SECTION_MAP[x]) out.push(x);
+        });
+        return Array.from(new Set(out)).filter((x) => x !== id);
+      }
+      function traceUsersOf(id) {
+        return DATA.sections.filter((s) => s.id !== id && traceDepsOf(s.id).includes(id)).map((s) => s.id);
+      }
+      function traceClosure(id, step) {
+        const seen = new Set();
+        const queue = [id];
+        while (queue.length) {
+          const cur = queue.shift();
+          step(cur).forEach((n) => { if (!seen.has(n) && n !== id) { seen.add(n); queue.push(n); } });
+        }
+        return Array.from(seen);
+      }
+      function tracePathToMain(id) {
+        const target = "main-statements";
+        if (id === target) return [target];
+        const prev = {};
+        const queue = [id];
+        const seen = new Set([id]);
+        while (queue.length) {
+          const cur = queue.shift();
+          for (const n of traceUsersOf(cur)) {
+            if (seen.has(n)) continue;
+            seen.add(n); prev[n] = cur;
+            if (n === target) {
+              const path = [target];
+              let p = target;
+              while (p !== id) { p = prev[p]; path.unshift(p); }
+              return path;
+            }
+            queue.push(n);
+          }
+        }
+        return null;
+      }
+      function buildPathTracerBody() {
+        if (!traceNodeId || !SECTION_MAP[traceNodeId]) {
+          return '<p class="trace-empty">Pick a module above (or press a module\'s <em>Trace</em> chip) to see everything it builds on, everything that relies on it, and its shortest import route to <code>Main.lean</code>.</p>';
+        }
+        const path = tracePathToMain(traceNodeId);
+        const up = traceClosure(traceNodeId, traceDepsOf);
+        const down = traceClosure(traceNodeId, traceUsersOf);
+        const pill = (id, cls) => '<button type="button" class="dep-pill ' + (cls || "") + '" data-nav="' + escapeHtml(id) + '">' + escapeHtml(getSectionLabel(id)) + "</button>";
+        let html = '<div class="trace-block"><div class="trace-label">Shortest route to Main.lean</div><div class="trace-path">';
+        if (path) html += path.map((id, i) => pill(id, i === 0 ? "trace-start" : (id === "main-statements" ? "trace-end" : ""))).join('<span class="trace-arrow">→</span>');
+        else html += '<span class="trace-empty">No import route reaches Main.lean from this module (it may only feed other support code).</span>';
+        html += "</div></div>";
+        html += '<div class="trace-cols">';
+        html += '<div class="trace-block"><div class="trace-label">Builds on, directly or indirectly (' + up.length + ")</div><div class=\"dep-row\">" + (up.length ? up.map((x) => pill(x, "trace-up-pill")).join("") : '<span class="trace-empty">Only Mathlib</span>') + "</div></div>";
+        html += '<div class="trace-block"><div class="trace-label">Relied on by, directly or indirectly (' + down.length + ")</div><div class=\"dep-row\">" + (down.length ? down.map((x) => pill(x, "trace-down-pill")).join("") : '<span class="trace-empty">Nothing: top of the graph</span>') + "</div></div>";
+        html += "</div>";
+        html += '<p class="svg-caption">Dependencies are read from the actual <code>import</code> lines, grouped by module. Folders can import each other in both directions, so "builds on" and "relied on by" can overlap.</p>';
+        return html;
+      }
+      function buildPathTracerCard() {
+        if (FEAT.path_tracer === false) return "";
+        let html = '<div class="card" id="path-tracer">';
+        html += '<div class="arch-figure-label">Figure 2 · Path Tracer</div>';
+        html += '<h3 class="card-title">Shortest-Path Tracer in the Proof Architecture</h3>';
+        html += '<div class="trace-controls"><label for="traceSelect"><strong>Trace module:</strong></label> <select id="traceSelect"><option value="">— choose a module —</option>';
+        [["Core", CORE_IDS], ["Foundations", DEV_IDS], ["Support", SUPPORT_IDS]].forEach(([lab, ids]) => {
+          html += '<optgroup label="' + escapeHtml(lab) + '">';
+          ids.forEach((id) => { if (SECTION_MAP[id]) html += '<option value="' + escapeHtml(id) + '"' + (id === traceNodeId ? " selected" : "") + ">" + escapeHtml(SECTION_MAP[id].name) + "</option>"; });
+          html += "</optgroup>";
+        });
+        html += "</select>";
+        html += ' <button type="button" class="small-action-btn" data-trace-clear="1">Clear</button></div>';
+        html += '<div class="trace-chip-row">';
+        DATA.sections.forEach((s) => { html += '<button type="button" class="trace-chip' + (s.id === traceNodeId ? " active" : "") + '" data-trace-node="' + escapeHtml(s.id) + '">Trace ' + escapeHtml(s.name) + "</button>"; });
+        html += "</div>";
+        html += '<div id="pathTracerBody">' + buildPathTracerBody() + "</div></div>";
+        return html;
+      }
+      function applyTraceHighlight() {
+        const nodes = Array.from(document.querySelectorAll("[data-arch-node]"));
+        nodes.forEach((n) => n.classList.remove("trace-dim", "trace-on-path", "trace-up", "trace-down", "trace-self"));
+        if (!traceNodeId || !SECTION_MAP[traceNodeId]) return;
+        const path = new Set(tracePathToMain(traceNodeId) || []);
+        const up = new Set(traceClosure(traceNodeId, traceDepsOf));
+        const down = new Set(traceClosure(traceNodeId, traceUsersOf));
+        nodes.forEach((n) => {
+          const id = n.getAttribute("data-arch-node");
+          if (id === traceNodeId) n.classList.add("trace-self");
+          else if (path.has(id)) n.classList.add("trace-on-path");
+          else if (down.has(id)) n.classList.add("trace-down");
+          else if (up.has(id)) n.classList.add("trace-up");
+          else n.classList.add("trace-dim");
+        });
+      }
+      function setTraceNode(id) {
+        traceNodeId = id || "";
+        const body = document.getElementById("pathTracerBody");
+        if (body) body.innerHTML = buildPathTracerBody();
+        const sel = document.getElementById("traceSelect");
+        if (sel) sel.value = traceNodeId;
+        document.querySelectorAll("[data-trace-node]").forEach((b) => b.classList.toggle("active", b.getAttribute("data-trace-node") === traceNodeId));
+        applyTraceHighlight();
+      }
+
+      // ---- 5. Treemap ----
+      function layoutTreemap(items, x, y, w, h) {
+        const total = items.reduce((a, b) => a + b.value, 0) || 1;
+        const scale = (w * h) / total;
+        const nodes = items.map((it) => Object.assign({}, it, { area: it.value * scale })).sort((a, b) => b.area - a.area);
+        const rects = [];
+        let rx = x, ry = y, rw = w, rh = h;
+        let row = [];
+        const worst = (r, len) => {
+          const s = r.reduce((a, b) => a + b.area, 0);
+          let mx = -Infinity, mn = Infinity;
+          r.forEach((q) => { mx = Math.max(mx, q.area); mn = Math.min(mn, q.area); });
+          return Math.max((len * len * mx) / (s * s), (s * s) / (len * len * mn));
+        };
+        const flush = (r) => {
+          const s = r.reduce((a, b) => a + b.area, 0);
+          if (s <= 0) return;
+          if (rw >= rh) {
+            const cw = s / rh; let cy = ry;
+            r.forEach((q) => { const ch = q.area / cw; rects.push(Object.assign({}, q, { x: rx, y: cy, w: cw, h: ch })); cy += ch; });
+            rx += cw; rw -= cw;
+          } else {
+            const ch = s / rw; let cx = rx;
+            r.forEach((q) => { const cw = q.area / ch; rects.push(Object.assign({}, q, { x: cx, y: ry, w: cw, h: ch })); cx += cw; });
+            ry += ch; rh -= ch;
+          }
+        };
+        nodes.forEach((n) => {
+          if (n.area <= 0) return;
+          const len = Math.min(rw, rh);
+          if (row.length === 0 || worst(row.concat([n]), len) <= worst(row, len)) row.push(n);
+          else { flush(row); row = [n]; }
+        });
+        if (row.length) flush(row);
+        return rects;
+      }
+      function buildTreemapBody() {
+        const hasLines = DATA.sections.every((s) => typeof s.code_lines === "number");
+        if (!hasLines) treemapMetric = "files";
+        const val = (s) => (treemapMetric === "lines" ? s.code_lines : s.file_count) || 0;
+        const items = DATA.sections.map((s) => ({ id: s.id, name: s.name, value: val(s), cat: getCategoryClass(s) }));
+        const total = items.reduce((a, b) => a + b.value, 0);
+        const W = 1000, H = 520;
+        const rects = layoutTreemap(items, 0, 0, W, H);
+        let html = "";
+        if (hasLines) {
+          html += '<div class="dir-controls"><span class="dir-label">Size by:</span>';
+          html += '<button type="button" class="dir-btn' + (treemapMetric === "files" ? " active" : "") + '" data-treemap-metric="files">Files</button>';
+          html += '<button type="button" class="dir-btn' + (treemapMetric === "lines" ? " active" : "") + '" data-treemap-metric="lines">Lines of code</button></div>';
+        }
+        html += '<div class="svg-stage"><svg class="treemap-svg" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Treemap of module sizes">';
+        rects.forEach((r) => {
+          const pct = total ? (100 * r.value / total) : 0;
+          html += '<g class="tm-cell tm-' + r.cat + '" data-nav="' + escapeHtml(r.id) + '" tabindex="0">';
+          html += "<title>" + escapeHtml(r.name + ": " + formatNum(r.value) + (treemapMetric === "lines" ? " lines" : " files") + " (" + pct.toFixed(1) + "%)") + "</title>";
+          html += '<rect x="' + r.x.toFixed(1) + '" y="' + r.y.toFixed(1) + '" width="' + Math.max(0, r.w - 2).toFixed(1) + '" height="' + Math.max(0, r.h - 2).toFixed(1) + '"></rect>';
+          if (r.w > 92 && r.h > 34) {
+            const fs = Math.max(11, Math.min(17, Math.sqrt(r.w * r.h) / 10));
+            html += '<text x="' + (r.x + 8).toFixed(1) + '" y="' + (r.y + 8 + fs).toFixed(1) + '" style="font-size:' + fs.toFixed(1) + 'px">' + escapeHtml(r.name.length * fs * 0.5 > r.w - 14 ? r.name.slice(0, Math.max(3, Math.floor((r.w - 14) / (fs * 0.5)) - 1)) + "…" : r.name) + "</text>";
+            if (r.h > 34 + fs * 1.4) html += '<text class="tm-num" x="' + (r.x + 8).toFixed(1) + '" y="' + (r.y + 10 + fs * 2.2).toFixed(1) + '" style="font-size:' + (fs * 0.72).toFixed(1) + 'px">' + formatNum(r.value) + " · " + pct.toFixed(1) + "%</text>";
+          }
+          html += "</g>";
+        });
+        html += "</svg></div>";
+        const small = rects.filter((r) => !(r.w > 92 && r.h > 34)).concat(items.filter((i) => i.value <= 0));
+        if (small.length) {
+          html += '<div class="tm-small"><span class="trace-label">Too small to label:</span> ' + small.sort((a, b) => b.value - a.value).map((r) => '<button type="button" class="dep-pill" data-nav="' + escapeHtml(r.id) + '">' + escapeHtml(r.name) + " · " + formatNum(r.value) + "</button>").join("") + "</div>";
+        }
+        html += '<div class="svg-legend"><span class="svg-legend-item"><span class="svg-swatch" style="background:var(--core);"></span>Core</span><span class="svg-legend-item"><span class="svg-swatch" style="background:var(--dev);"></span>Foundations</span><span class="svg-legend-item"><span class="svg-swatch" style="background:var(--support);"></span>Support</span><span class="svg-legend-item"><span class="svg-swatch" style="background:var(--priority);"></span>Entry point</span></div>';
+        html += '<p class="svg-caption">Each rectangle\'s area is proportional to its module\'s share of the ' + formatNum(total) + (treemapMetric === "lines" ? " lines of code" : " Lean files") + " counted across the modules of this viewer" + (FEAT.treemap_note ? " " + escapeHtml(FEAT.treemap_note) : "") + ". Select a rectangle to open that module.</p>";
+        return html;
+      }
+      function buildTreemapCard() {
+        if (FEAT.treemap === false) return "";
+        let html = '<div class="card" id="module-treemap">';
+        html += '<div class="arch-figure-label">Figure 3 · Repository Size</div>';
+        html += '<h3 class="card-title">Interactive Treemap of Module Sizes</h3>';
+        html += '<div id="treemapBody">' + buildTreemapBody() + "</div></div>";
+        return html;
+      }
+
+      document.addEventListener("click", (e) => {
+        const modBtn = e.target.closest("[data-dir-mod]");
+        if (modBtn) { dirMod = Number(modBtn.getAttribute("data-dir-mod")); dirResidue = 1; const b = document.getElementById("dirichletBody"); if (b) b.innerHTML = buildDirichletBody(); return; }
+        const resBtn = e.target.closest("[data-dir-res]");
+        if (resBtn) { dirResidue = Number(resBtn.getAttribute("data-dir-res")); const b = document.getElementById("dirichletBody"); if (b) b.innerHTML = buildDirichletBody(); return; }
+        const tsBtn = e.target.closest("[data-tactic-step]");
+        if (tsBtn) {
+          const v = tsBtn.getAttribute("data-tactic-step");
+          if (v === "prev") tacticStep -= 1; else if (v === "next") tacticStep += 1; else tacticStep = Number(v);
+          const b = document.getElementById("tacticStepperBody"); if (b) b.innerHTML = buildTacticStepperBody();
+          return;
+        }
+        const trBtn = e.target.closest("[data-trace-node]");
+        if (trBtn) { setTraceNode(trBtn.getAttribute("data-trace-node")); return; }
+        if (e.target.closest("[data-trace-clear]")) { setTraceNode(""); return; }
+        const tmBtn = e.target.closest("[data-treemap-metric]");
+        if (tmBtn) { treemapMetric = tmBtn.getAttribute("data-treemap-metric"); const b = document.getElementById("treemapBody"); if (b) b.innerHTML = buildTreemapBody(); return; }
+      });
+      document.addEventListener("change", (e) => {
+        if (e.target && e.target.id === "traceSelect") setTraceNode(e.target.value);
+      });
+      document.addEventListener("keydown", (e) => {
+        if ((e.key === "Enter" || e.key === " ") && e.target && e.target.classList && e.target.classList.contains("tm-cell")) {
+          e.preventDefault();
+          navigateTo(e.target.getAttribute("data-nav"), true);
+        }
+      });
+
       function renderMain() {
         const main = document.getElementById("mainContent");
         if (currentView === "prime-crash-course") {
@@ -7454,6 +8165,7 @@
         } else if (currentView === "architecture-roadmap") {
           main.innerHTML = renderArchRoadmap();
           wireArchitectureHover();
+          applyTraceHighlight();
         } else if (currentView === "visual-intuition") {
           main.innerHTML = renderVisualIntuition();
         } else if (currentView === "call-stack-stepanov") {
@@ -7469,8 +8181,8 @@
         applyGlobalGlossaryTooltips();
         document.title =
           currentView === "conjecture-overview"
-            ? "Riemann Hypothesis & GRH in Lean 4 — Interactive Proof Viewer for Software Engineers"
-            : getSectionLabel(currentView) + " — Riemann Hypothesis & GRH in Lean 4";
+            ? LAYOUT.doc_title
+            : getSectionLabel(currentView) + " — " + LAYOUT.doc_title.split(" — ")[0];
         renderSidebar();
         updateCourseProgressUI();
         updateProposalsUI();
@@ -7480,7 +8192,7 @@
       }
 
       function navigateTo(targetId, pushHash, scrollTargetId) {
-        if (targetId === "development-pillars") {
+        if (targetId === LAYOUT.pillar_meta_id) {
           currentView = "architecture-roadmap";
           if (pushHash !== false) window.location.hash = "architecture-roadmap";
           renderMain();
@@ -7962,7 +8674,7 @@
           writeStorageTs(window.sessionStorage, effectiveTs);
         }
 
-        const targetUrl = "https://craftwill.github.io/alpoge-riemann-lean-viewer/";
+        const targetUrl = LAYOUT.page_url;
         const encodedUrl = encodeURIComponent(targetUrl);
         const endpoint = shouldCountHit
           ? "https://hitscounter.dev/api/hit?url=" + encodedUrl + "&output=json"
